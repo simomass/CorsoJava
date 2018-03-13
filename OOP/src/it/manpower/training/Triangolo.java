@@ -34,7 +34,7 @@ public class Triangolo {
 		if (lato1 <= 0&&lato2<=0&&lato3<=0) {
 			throw new RuntimeException("valori negativi non permessi");
 		} else if(lato1+lato2<lato3 | lato1+lato3<lato2){
-			throw new RuntimeException("triangolo non puï¿½ esistere");
+			throw new RuntimeException("triangolo non può esistere");
 		} else {
 			this.lato1=lato1;
 			this.lato2= lato2;
@@ -78,11 +78,11 @@ public class Triangolo {
 	public String confrontaArea(Triangolo nuovoTriangolo) {
 		double area=nuovoTriangolo.getArea();
 		if (this.getArea()>area) {
-			return "Il triangolo Ã¨ piÃ¹ piccolo";
+			return "Il triangolo è più piccolo";
 		} else if (this.getArea()==area){
 			return "I triangoli sono uguali";
 		} else {
-			return "Il triangolo Ã¨ piÃ¹ grande";	
+			return "Il triangolo è più grande";	
 		}
 	}
 		
