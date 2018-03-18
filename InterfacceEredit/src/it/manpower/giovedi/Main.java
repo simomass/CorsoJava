@@ -6,7 +6,7 @@ import java.util.List;
 public class Main {
 	public static void main(String[] args) {
 		// Elaboratore mah = new Elaboratore();
-		Filter f = new Pari();
+		//Filter f = new Pari();
 		// mah.setF(boh);
 		// mah.acceptNumber(12);
 		// mah.acceptNumber(22);

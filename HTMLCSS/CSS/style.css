@@ -1,0 +1,43 @@
+body{
+    color: black;
+    background-color: aliceblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+    /*background-image: url(../image/back.png);
+    background-repeat: no-repeat;
+    background-position: 200px 100px;
+    background-size: auto;
+    height: auto;*/
+    /* come 
+    in java
+    */
+}
+
+#main-content{
+    color: black;
+}
+
+.sidebar {
+    color: red;
+}
+
+#main-content ol li {
+    color: black;
+}
+
+#main-section h1 {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+aside-sidebar {
+    /*DAi lo stile agli aside di classe sidebar*/
+
+}
+
+section#main-section{
+    
+    }
+section#main-section{
+
+}
+
