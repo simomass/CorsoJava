@@ -1,0 +1,26 @@
+package it.manpower.esame;
+
+public class Articolo {
+	private int nome;
+	private Categoria categoria;
+	public Articolo(int nome, Categoria categoria) {
+		this.nome = nome;
+		this.categoria = categoria;
+	}
+	
+	
+	public int getNome() {
+		return nome;
+	}
+	public void setNome(int nome) {
+		this.nome = nome;
+	}
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+	
+
+}

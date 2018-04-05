@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+body {
+    text-align: center;
+    color: #434242;
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+ul {
+    list-style-type: none;
+}
+
+h2,
+h3 {
+    color: #033C68;
+    padding: 10px 0;
+}
+
+section {
+    padding-bottom: 80px;
+}
+
+header {
+    padding: 120px 0;
+    background-color: #033C68;
+    color: #FFFBF6;
+    background-image: url('../img/vintage-concrete.png');
+    box-shadow: inset 0 0 0 2000px rgba(3, 60, 104, 0.7);
+}
+
+header h1 {
+    font-size: 3em;
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+}
+
+header .lead {
+    padding-top: 10px;
+}
+
+.skills {
+    padding-top: 40px;
+    box-shadow: 0px 1px 20px 0px rgba(50, 50, 50, 0.6);
+}
+
+.skill {
+    font-weight: bold;
+    margin: 15px 0 5px 0;
+}
+
+.works {
+    padding-top: 40px;
+    background-color: #FFF4E5;
+    box-shadow: 0px 1px 20px 0px rgba(50, 50, 50, 0.6);
+}
+
+.work {
+    padding: 20px;
+    margin: 15px 0 5px 0;
+}
+
+.contacts {
+    box-shadow: 0px 1px 20px 0px rgba(50, 50, 50, 0.6);
+    padding-top: 40px;
+    background-color: #FFE2BA;
+}
+
+.contacts li {
+    display: inline;
+}
+
+footer {
+    box-shadow: 0px 1px 20px 0px rgba(50, 50, 50, 0.6);
+    color: #FFFBF6;
+    background-color: #012039;
+    line-height: 4em;
+    font-size: 0.8em;
+}

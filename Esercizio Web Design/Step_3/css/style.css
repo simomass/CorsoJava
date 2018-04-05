@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
+/* per questo esempio ho scelto una palette basata su colori complementari*/
+
+
+/* Rimuovo un po' di stili che il browser applica di default. */
+
+ul {
+    list-style-type: none;
+}
+
+body {
+    text-align: center;
+    color: #434242;
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h2,
+h3 {
+    color: #033C68;
+    padding: 10px 0;
+}
+
+section {
+    padding-bottom: 80px;
+}
+
+.container {
+    margin: 0 auto;
+    width: 960px;
+}
+
+header {
+    padding: 120px 0;
+    background-color: #033C68;
+    color: #FFFBF6;
+}
+
+header h1 {
+    font-size: 3em;
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+}
+
+header .lead {
+    padding-top: 10px;
+}
+
+.skills {
+    padding-top: 40px;
+}
+
+.skill {
+    font-weight: bold;
+    /*font-size: 16px;*/
+    display: inline-block;
+    width: 316px;
+    margin: 15px 0 5px 0;
+}
+
+.works {
+    padding-top: 40px;
+    background-color: #FFF4E5;
+}
+
+.work {
+    display: inline-block;
+    padding: 20px;
+    width: 478px;
+    margin: 15px 0 5px 0;
+}
+
+.contacts {
+    padding-top: 40px;
+    background-color: #FFE2BA;
+}
+
+.contacts li {
+    display: inline;
+}
+
+footer {
+    color: #FFFBF6;
+    background-color: #012039;
+    line-height: 4em;
+    font-size: 0.8em;
+}

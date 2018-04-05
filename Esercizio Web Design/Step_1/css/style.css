@@ -1,0 +1,55 @@
+* {
+    box-sizing: border-box;
+}
+
+
+/* Rimuovo un po' di stili che il browser applica di default. */
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    text-align: center;
+}
+
+section {
+    padding-bottom: 80px;
+}
+
+.container {
+    margin: 0 auto;
+    width: 960px;
+}
+
+header {
+    padding: 120px 0;
+}
+
+
+/* questo è un trucco per risolvere un problema con gli elementi inline */
+
+
+/*
+.skills {
+    font-size: 0;
+}
+*/
+
+.skill {
+    /*font-size: 16px;*/
+    display: inline-block;
+    width: 316px;
+}
+
+.work {
+    display: inline-block;
+    padding: 20px;
+    width: 478px;
+}
+
+.contacts li {
+    display: inline;
+}

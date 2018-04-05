@@ -1,0 +1,6 @@
+package it.manpower.esame;
+
+public enum Categoria {
+	Elettronica, Alimentari, Abbigliamento;
+	
+}

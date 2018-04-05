@@ -1,0 +1,11 @@
+package it.manpower.esame;
+
+public class Main {
+	public static void main(String[] args) {
+		Articolo art1("Televisore", "Elettronica");
+		Articolo art2("Cappotto", "Abbigliamento");
+		Articolo art3("PAne", "Alimentari");
+		Articolo art4("Acqua", "Alimentari");
+		
+	}
+}

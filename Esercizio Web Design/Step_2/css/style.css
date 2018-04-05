@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
+/* per questo esempio ho scelto una palette basata su colori complementari*/
+
+
+/* Rimuovo un po' di stili che il browser applica di default. */
+
+ul {
+    list-style-type: none;
+}
+
+body {
+    text-align: center;
+    color: #434242;
+}
+
+h2,
+h3 {
+    color: #033C68;
+}
+
+section {
+    padding-bottom: 80px;
+}
+
+.container {
+    margin: 0 auto;
+    width: 960px;
+}
+
+header {
+    padding: 120px 0;
+    background-color: #033C68;
+    color: #FFFBF6;
+}
+
+
+/* questo è un trucco per risolvere un problema con gli elementi inline */
+
+.skill {
+    /*font-size: 16px;*/
+    display: inline-block;
+    width: 316px;
+}
+
+.works {
+    background-color: #FFF4E5;
+}
+
+.work {
+    display: inline-block;
+    padding: 20px;
+    width: 478px;
+}
+
+.contacts {
+    background-color: #FFE2BA;
+}
+
+.contacts li {
+    display: inline;
+}
+
+footer {
+    color: #FFFBF6;
+    background-color: #012039;
+}

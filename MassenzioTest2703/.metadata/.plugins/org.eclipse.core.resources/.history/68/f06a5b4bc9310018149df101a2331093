@@ -1,0 +1,15 @@
+package it.manpower.esame;
+
+public class CalcoloPrezzoScontoAbbigliamento implements CalcoloPrezzo{
+
+	@Override
+	public int ottieniPrezzo(Articolo a) {
+		if(a.getCategoria().name()=="Elettronica") {
+			return 500;
+		} else if(a.getCategoria().name()=="Alimentari") {
+			return 10;
+		}
+		return 30;
+	}
+	
+}

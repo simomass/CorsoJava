@@ -1,0 +1,7 @@
+package it.manpower.esame;
+
+public class Main {
+	public static void main(String[] args) {
+		Articolo art1("", )
+	}
+}

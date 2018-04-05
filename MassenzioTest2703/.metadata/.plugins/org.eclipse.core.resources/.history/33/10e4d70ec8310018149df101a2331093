@@ -1,0 +1,17 @@
+package it.manpower.esame;
+
+import java.util.List;
+
+public class Scontrino {
+	private List<Articolo> articoli;
+
+	public Scontrino(List<Articolo> articoli) {
+		this.articoli = articoli;
+	}
+	
+	public void add(Articolo articolo) {
+		articoli.add(articolo);
+	}
+	
+	
+}
