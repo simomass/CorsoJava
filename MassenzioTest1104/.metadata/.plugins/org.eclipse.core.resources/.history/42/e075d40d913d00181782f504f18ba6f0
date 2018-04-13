@@ -1,0 +1,29 @@
+package it.manpower.esame;
+
+import java.sql.Date;
+
+public class Prenotazione {
+	private int id;
+	private int id_cliente;
+	private int id_auto;
+	private Date from;
+	private Date to;
+	
+	
+	public int getId() {
+		return id;
+	}
+	public int getId_cliente() {
+		return id_cliente;
+	}
+	public int getId_auto() {
+		return id_auto;
+	}
+	public Date getFrom() {
+		return from;
+	}
+	public Date getTo() {
+		return to;
+	}
+	
+}

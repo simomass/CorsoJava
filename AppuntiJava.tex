@@ -1,0 +1,2485 @@
+\documentclass[a4paper,12pt,twoside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%% \usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage[english,italian]{babel}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{placeins}
+\usepackage[hidelinks]{hyperref}
+\usepackage{multicol}
+\usepackage{tabularx}
+
+
+\usepackage{listings}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  texcl=true
+}
+
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip 40\p@
+  }}
+\def\@makeschapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \Huge \bfseries  #1\par\nobreak
+    \vskip 40\p@
+  }}
+\makeatother
+
+\author{Simone.}
+\title{Appunti corso Java Manpower}
+\begin{document}
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+\chapter{Introduzione}
+Il linguaggio Java è un linguaggio di alto livello con le seguenti
+caratteristiche:
+\begin{itemize}
+\item Semplice
+\item Object oriented
+\item Distribuito
+\item Multithread
+\item Dinamico (caricamento e linking)
+\item Architecture neutral (windows system, processor)
+\item Portabile (byte code, standardizzazione tipi di dati)
+\item Alte performance (JIT compiler)
+\item Robusto (Strict compile-time and run-time check)
+\item Sicuro
+\end{itemize}
+Nel linguaggio Java, il codice sorgente è inizialmente scritto in file
+di testo con estensione \emph{.java}. Questi file sono compilato in
+file \emph{.class} dal compilatore javac. Un file \emph{.class} non
+contiene codice nativamente per il processore; contiene invece
+\emph{bytecode}: il linguaggio macchina della Java Virtual Machine
+(JVM). Il java launcher tool compila l'applicazione con un istanza
+della JVM.
+
+Siccome la JVM è disponibile in molti sistemi operativi, lo stesso
+file \emph{.class} è eseguibile su diversi sistemi operativi.
+
+\section{La Java \emph{Platform}}
+Con \emph{platform} si intende l'ambiente Hardware o Software in cui
+il programma viene eseguito. La Java \emph{platform}
+(fig. \ref{fig:JP}) ha due componenti:
+\begin{itemize}
+\item la Java Virtual Machine
+\item la Java Application Programming Interface (API)
+\end{itemize}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.4\textwidth]{/home/simone/informatica/Appunti/Java/immagini/JavaPlatform.png}
+  \caption{Java Platform \label{fig:JP}}
+\end{figure}
+
+La API è una larga collezione di componenti software pronte all'uso
+che provvedono a molte utili funzioni. Sono raggruppate in librerie di
+relative classi ed interfacce; queste librerie (fig. \ref{fig:API})
+sono conosciute come \emph{package}.
+
+Come ambiente platform-dipendente, La Java \emph{platform} può essere
+un leggermente più lenta del codice nativo. Tuttavia, l'avanzamento
+delle tecnologie dei compilatori e delle virtal machine stanno
+portando a performance vicine al codice nativo senza minacciare la
+portabilità.
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{/home/simone/informatica/Appunti/Java/immagini/API.png}
+  \caption{Java API \label{fig:API}}
+\end{figure}
+\FloatBarrier
+
+\section{Installazione}
+
+Per l'esecuzione è necessaria soltanto una JRE (Java Runtime
+Environment). Per lo sviluppo è necessario scaricare la JDK (Java
+Development Kit) che contiene tra l'altro la JRE.
+
+\section{Hello World!}
+
+Il codice \ref{lst:Hello} rappresenta l'applicazione per far stampare
+a schermo la scritta "Hello World!".
+\begin{lstlisting}[caption={Hello world!},label={lst:Hello},language=Java]
+  public class HelloWorld {
+    public static void main( String [] args ) {
+      System.out.println( "Hello world!" );
+      /**
+      *
+      *Questo e' un commento di documentazione
+      *
+      */
+    }
+
+  }
+
+\end{lstlisting}
+
+L'applicazione consiste di tre componenti primari: i commenti, la
+definizione della classe HelloWorld e il metodo main.
+
+\paragraph{Commenti} si possono scrivere con lo slash (ignora la
+riga) o slash e star (ignora finché non trova uno star slash);
+aggiungendo uno star diventa un commento di documentazione, ovvero: il
+compilatore lo ignora, ma la javadoc tool usa il commento per
+preparare una documentazione automatica\footnote{\url{https://docs.oracle.com/javase/8/docs/technotes/guides/javadoc/index.html}}.
+\paragraph{Definizione Classe} la keyword "class" inizia la
+definizione della class per una classe nominata come la stringa
+seguente (in questo caso HelloWorld) e il codice di ogni classe appare
+tra le graffe aperte e chiuse.
+
+\paragraph{Metodo main} nel linguaggio Java, ogni applicazione deve
+contenere un metodo main. I modificatori public e static possono
+essere scritti in qualsiasi ordine, ma la convenzione è di scrivere
+public static come nel codice \ref{lst:Hello}.
+
+La linea System.out.println("Hello World!"); usa la System class dalla
+core library per stampare la scritta.
+
+\section{Eclipse IDE}
+
+Sviluppare da riga di comando non è il metodo corretto. Esistono degli
+IDE (Integrated Development Environment) che mettono a disposizione
+una serie di funzionalità essenziali per lo sviluppo del software.
+
+Alcuni vantaggi:
+\begin{itemize}
+\item evidenziazione immediata errori di sintassi
+\item completamento automatico
+\item formattazione codice
+\item scrittura automatica e assistita di codice
+\end{itemize}
+
+Per il linguaggio Java l'IDE più diffuso è Eclipse\footnote{\url{http://www.eclipse.org/downloads/eclipse-packages/}}; questo fornisce
+una piattaforma aperta per tool di sviluppo di applicazioni. È
+disponibile per tutti i sistemi operativi principali ed è estendibile
+tramite plugin.
+
+\section{Concetti di base}
+
+\subsection{Oggetti e classi}
+Un oggetto del mondo reale possiede due caratteristiche: Stato e
+Comportamento.
+Un oggetto software in modo simile possiede:
+\begin{itemize}
+\item Campi (mamorizzazione dello stato dell'oggetto)
+\item Metodi (interazione con lo stato dell'oggetto e comunicazione
+  tra oggetti)
+\end{itemize}
+
+La classe rappresenta la definizione del tipo di dato. L'oggetto è un
+istanza della classe e, normalmente, vengono create diverse istanze
+della stessa classe.
+
+Aggragare il codice in classi diverse ha molti vantaggi, tra cui:
+
+\begin{itemize}
+\item modularità
+\item incapsulamento
+\item riusabilità del codice
+\item rimpiazzabilità
+\item facilità di testing e debugging
+\end{itemize}
+
+\subsection{Package}
+
+Il Package è un namespace\footnote{Collezione di nomi di entità,
+  definite dal programmatore, omogeneamente usate in uno o più file
+  sorgente con lo scopo di evitare confusione ed equivoci nel caso
+  siano necessarie molte entità con nomi simili, fornendo il modo di
+  raggruppare i nomi per categorie.} che permette di organizzare un
+set di classi e interfacce correlate. È possibile creare classi con lo
+stesso nome su package differenti. I package permettono un maggior
+controllo sull'accesso ai metodi e ai campi di un oggetto. Il nome del
+package definisce la struttura della cartella del file sorgente.
+
+\subsection{Classpath}
+
+Una classe viene caricata dalla virtual machine solo quando viene
+utilizzata in un'altra classe (lazy load). Per trovare una classe, la
+VM utilizza il nome del file .class associato alla classe stessa (il
+path del file viene generato tramite il nome del package associato
+alla classe); se il file viene trovato viene caricato dalla VM,
+altrimenti viene sollevata un'eccezione.
+
+\subsection{Jar}
+
+Un insieme di file .class con la propria struttura di cartelle può
+essere impacchettato all'interno di un file .jar (Java
+ARchive). indica un archivio dati compresso (ZIP) usato per
+distribuire raccolte di classi Java. Tali file sono concettualmente e
+praticamente assimilabili a package, e quindi talvolta associabili al
+concetto di libreria.
+
+\subsection{Variabili}
+\label{subsec:variables}
+
+Java definisce le seguenti tipologie di variabili:
+\begin{itemize}
+\item Instance Variables (Non-Static Fields)
+\item Class Variables (Static Fields)
+\item Local Variables
+\item Parameters
+\end{itemize}
+
+\paragraph{Instance Variables (non-static fields)} Tecnicamente
+parlando, gli oggetti salvano i loro stati in campi "non statici", che
+sono campi dichiarati senza la parola static. I campi non-statici sono
+anche conosciuti come variabili di istanza perché il loro valore è
+unico a ogni istanza di una classe (es. lo stato velocità di una
+classe bicicletta è indipendente dalla velocità di un altro oggetto
+bicicletta).
+
+\paragraph{Class Variables (static fields)} Ogni campo dichiarato
+con il modificatore static; questo dice al compilatore che ci sono
+esattamente una copia di questa variabile, indipendentemente da quante
+volte la classe è stata istanziata (es. il numero di marce per ogni
+bicicletta è sempre lo stesso). In aggiunta, la parola final può
+essere aggiunta per indicare che il numero di marce non può cambiare.
+
+\paragraph{Variabili locali} In modo simile a come un oggetto registra
+il suo stato in un campo, un metodo può spesso registrare il suo stato
+in una variabile locale. Non ci sono keyword per designare una
+variabile come locale, questa determinazione viene esclusivamente
+dalla locazione in cui la variabile è dichiarata (tra le graffe di un
+metodo). Queste variabili sono accessibili solo all'interno del
+metodo.
+
+\paragraph{Parametri} sono le variabili in ingresso ai metodi e sono
+sempre classificati come variabili e non come campi.
+
+\vspace{1em}
+
+Java è un linguaggio a tipizzazione statica, quindi ogni variabile
+deve essere dichiarata prima del suo utilizzo.
+
+Alcune regole e convenzioni sui nomi delle variabili:
+\begin{itemize}
+\item case-sensitive (riconoscono la differenza
+  tra maiuscole e minuscole)
+\item spazi non permessi
+\item iniziare sempre il nome con una lettera
+\item utilizzare nomi completi che descrivono
+  chiaramente la variabile
+\item utilizzare il Camel Case per variabili composte da più parole
+\end{itemize}
+
+\begin{lstlisting}[caption={Dichiarazione variabili},
+  label={lst:Declaration},language=Java]
+  
+  static final int nomeVariabile; /*esempio che crea una variabile
+  statica che non puo' essere modificata*/
+
+\end{lstlisting}
+
+\subsection{Tipi primitivi}
+
+Java supporta otto tipi primitivi:
+\begin{itemize}
+\item byte, registra numeri interi di massimo 8bit, varia da un valore
+  di -127 a -128. Utile per array molto grandi dove il risparmio di
+  memoria è importante. Possono essere usati al posto di int per
+  rendere più chiaro il codice (il fatto che una variabile ha range
+  limitato può servire come una sorta di documentazione)
+\item short, tipo a 16 bit (da -32,768 a 32,767) valgono le stesse
+  indicazioni del tipo byte.
+\item int, di default int è un tipo a 32 bit che parte da valori
+  negativi a positivi. In Java 8 è possibile farlo partire da 0
+  utilizzando la classe Integer.
+\item long tipo a 64 bit, stesse indicazioni per int
+\item float, 32 bit, supporta i numeri con la virgola, per valori
+  precisi è necessario usare java.math.BigDecimal
+\item  double, come il float ma a 64 bit
+\item boolean, tipo a due stati booleani (true, false)
+\item char, 16 bit, supporta i valori Unicode. 
+\end{itemize}
+
+In aggiunta agli otto tipi primitivi si possono citare String per le
+stringhe di caratteri.
+Una volta create, le variabili (se non inizializzate subito con un
+valore) assumono un valore di default (fig. \ref{fig:default}).
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{/home/simone/informatica/Appunti/Java/immagini/default.png}
+  \caption{Valori di default alla dichiarazione delle variabili \label{fig:default}}
+\end{figure}
+
+\subsection{Array}
+
+Un array è un contenitore che raggruppa un numero fissato di valori
+dello stesso tipo. La lunghezza di un vettore viene stabilita alla sua
+creazione, e rimane fissata. Ogni elemento dell'array è indicizzato.
+
+È possibile anche usare una sintassi breve per creare e inizializzare
+un array (codice \ref{lst:arrayDec}), in questo caso la lunghezza di
+array è data dal numero di valori tra le graffe.
+
+Inoltre è possibile creare un array di array usando due set di graffe.
+
+\begin{lstlisting}[caption={Dichiarazione array},
+  label={lst:arrayDec},language=Java]
+  int[] myArray = new int[2];
+  int[0] = 10;
+  int[1] = 20;
+  int[] anArray = { 
+    100, 200, 300,
+    400, 500, 600, 
+    700, 800, 900, 1000
+  }; //gia' inizializzato
+  String[][] names = {
+    {"Mr. ", "Mrs. ", "Ms. "},
+    {"Smith", "Jones"}
+  }; //array di array
+\end{lstlisting}
+
+\subsection{Operatori}
+
+Gli operatori sono simboli speciali (fig. \ref{fig:operatori}) che
+eseguono operazioni specifiche su uno, due o tre operandi. Gli
+operatori sono parole chiave riservate.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{/home/simone/informatica/Appunti/Java/immagini/operatori.png}
+  \caption{Operatori e loro significato \label{fig:operatori}}
+\end{figure}
+
+\subsection{Expressions}
+
+Una \emph{expression} è un costrutto formato da variabili operatori e
+invocazioni di metodi costruito secondo la sintassi del
+linguaggio. Quando viene eseguita, viene valutata come un singolo
+valore.
+
+Alcuni esempi sono x*y*z o x==z (la prima dà un valore numerico, la
+seconda un booleano).
+
+\subsection{Statements}
+
+Uno statement rappresenta un’unità di esecuzione completa. Alcuni tipi
+di statement possono essere ottenuti da espressioni terminate con un
+“;”.
+\begin{itemize}
+\item assegnazione
+\item incremento (++) o decremento (- -)
+\item invocazione di metodi
+\item operatore new (creazione oggetti)
+\item controllo di flusso
+\end{itemize}
+
+Un gruppo di zero o più statements tra parentesi bilanciate che può
+essere usato al posto di un singolo statements viene definito Block.
+
+\section{Controllo di flusso}
+
+Gli statements all’interno del codice sorgente vengono eseguiti
+normalmente in modo sequenziale, nell’ordine in cui sono stati
+dichiarati. Utilizzando gli statement di controllo di flusso, si può
+controllare l’esecuzione del codice applicando decisioni, ripetizioni
+cicliche e ramificazioni. Si può decidere quali blocchi di codice
+eseguire, e quante volte, a seconda di certe condizioni.
+\begin{itemize}
+\item decision-making statements
+  \begin{itemize}
+  \item if-then
+  \item if-then-else
+  \item switch
+  \end{itemize}
+\item looping statements
+  \begin{itemize} 
+  \item for
+  \item while
+  \item do-while
+  \end{itemize}
+\item branching statements
+  \begin{itemize}
+  \item break
+  \item continue
+  \item return
+  \end{itemize}
+\end{itemize}
+
+\subsection{if-then, if-then-else}
+Permette l’esecuzione di un particolare block solo se la condizione di
+guardia viene valutata true.Aggiungendo else, si può specificare un
+block eseguito nel caso la condizione non sia stata eseguita.
+
+\begin{lstlisting}[caption={if-then},
+  label={lst:ifthen},language=Java]
+  if (condition) {
+    System.out.println("Condition is true.");
+  }else {
+    System.out.println("Condition is false.");
+  }
+\end{lstlisting}
+
+\subsection{Switch}
+
+Lo switch è uno statement di controllo di flusso con multipli percorsi di
+esecuzione. Effettua un controllo su una variabili di tipo int, String
+o enumerazione e decide il percorso da eseguire.
+\begin{itemize}
+\item case e default
+  definiscono
+  l’esecuzione dello
+  switch
+\item lo statement break è
+  necessario per
+  notificare che il caso
+  corrente è terminato
+\item omettendolo si “cade”
+  nel caso successivo
+\end{itemize}
+\footnotesize{
+  \begin{lstlisting}[caption={switch},
+    label={lst:switch},language=Java]
+    String seasonString;
+    switch (seasonString) {
+      case 1: seasonString = "Fall";
+      break;
+      case 2: seasonString = "Spring";
+      break;
+      case 3: seasonString = "Summer";
+      break;
+      case 4: seasonString = "Winter";
+      break;
+      default: seasonString = "Invalid season";
+      break;
+    }
+    System.out.println(seasonString);
+  \end{lstlisting}}
+
+\subsection{while}
+
+Lo while esegue un block fino a che la condizione viene valutata true.
+\begin{lstlisting}[caption={while},
+  label={lst:while},language=Java]
+  while (expression) { 
+    statement(s); 
+  }
+\end{lstlisting}
+
+Lo while è un controllo di testa, per eseguire un controllo di coda si
+può utilizzare un do while.
+
+\subsection{for}
+
+Il for itera su una serie di valori:
+\begin{lstlisting}[caption={for},
+  label={lst:for},language=Java]
+  for (initialization; termination; increment) {
+    statement(s);
+  }
+\end{lstlisting}
+
+È formato da tre statement:
+\begin{itemize}
+\item initialization che inizializza il ciclo, eseguita solo una volta
+\item termination che quando viene valutato a false, il ciclo termina
+\item increment che viene invocato dopo ogni iterazione del
+  ciclo; tipicamente incrementa la variabile dell'iterazione. 
+\end{itemize}
+
+La variabile dichiarata nell'inizializzazione del ciclo è visibile
+fino alla chiusira del blocco.
+
+Se è necessario iterare su un array o una collezione si può scrivere
+un for-each, in cui il for è costituito da uno statement tra le
+parentesi (tipo item:array)
+
+\section{Metodi}
+
+Questo è un esempio di una tipica dichiarazione di un metodo
+\begin{lstlisting}[caption={metodo},
+  label={lst:method},language=Java]
+  public double calculateAnswer(double wingSpan, int numberOfEngines,
+  double length, double grossTons) {
+    //do the calculation here
+  }
+\end{lstlisting}
+Gli unici elementi richiesti da una dichiarazione di un metodo sono: il tipo
+di ritorno del metodo, il nome, le parentesi tonde e le graffe
+contenendi il corpo del metodo.
+
+Più frequentemente le dichiarazioni dei metodi hanno sei componenti:
+\begin{itemize}
+\item modificatori (public, private)
+\item tipo di ritorno (o void se non ritorna nessun valore)
+\item nome del metodo
+\item lista di parametri nelle parentesi tonde, separati dalla virgola
+\item una lista di eccezioni
+\item un corpo del metodo
+\end{itemize}
+
+In Java è possibile fare overload di un metodo, ovvero si può
+dichiarare più di un metodo per classe con lo stesso nome, a patto che
+i parametri siano diversi. Il tipo di ritorno non deve essere
+necessariamente diverso.
+\begin{lstlisting}[caption={overload},
+  label={lst:overload},language=Java]
+  public class Drawer {
+    //...
+    public void draw(String s) {
+      //...
+    }
+    public void draw(int i) {
+      //...
+    }
+  }
+\end{lstlisting}
+
+
+Gli argomenti di tipo primitivo, come ad esempio int o double, sono
+passati per valore. Qualsiasi cambiamento che avviene al parametro
+esiste solo all’interno del metodo. Quando il metodo ritorna, i
+parametri non sono più in scope e ogni cambiamento fatto è perduto.
+
+\begin{lstlisting}[caption={Passaggio di parametri},
+  label={lst:passPar},language=Java]
+  public class PassParametersExample {
+    public static void main(String[] args) {
+      int x = 3;
+      increment(x);
+    }
+    public static void increment(int p) {
+      p = p + 1;
+    }
+  }
+\end{lstlisting}
+
+Nel caso del codice \ref{lst:passPar}, la variabile p viene aumentata
+di 1, ma essendo una variabile locale non comporta cambiamenti alla
+variabile x. Il codice può essere corretto aggiungendo un return prima
+di p=p+1; e eguagliando x a increment(x) all'interno del metodo main.
+
+I metodi devono sempre ritornare il valore di ritorno presente nella
+dichiarazione mediante lo statement di tipo return. I metodi void
+possono anche non contenere il return, ma possono comunque utilizzarlo
+come metodo di controllo di flusso (il return blocca il ciclo ed esce
+dal metodo).
+
+\chapter{Classi, Oggetti e Template}
+Gli oggetti sono pacchetti software usati per modellizzare gli oggetti
+del mondo reale.
+
+Un oggetto del mondo reale possiede due caratteristiche: stato e
+comportamento. Allo stesso modo, gli oggetti software, possiedono dei
+Campi, in cui memorizzano lo stato dell'oggetto, e dei metodi, che
+consentono l'interazione con lo stato dell'oggetto e la comunicazione
+tra oggetti.
+
+Aggregare il codice in oggetti comporta numerosi benefici.
+\begin{enumerate}
+\item Modularità: il codice sorgente per un oggetto può essere scritto
+  e mantenuto indipendentemente dal codice sorgente degli altri
+  oggetti.
+\item Informazioni nascoste: interagendo solo con i metodi degli
+  oggetti, i dettagli della loro implementazione rimangono nascosti.
+\item Riutilizzo del codice: se un oggetto esiste già, puoi usare
+  l'oggetto nel tuo programma.
+\item Facilità di inserimento e debug: se un particolare oggetto
+  risulta problematico, puoi semplicemente rimuoverlo dalla tua
+  applicazione e sostituirlo con un oggetto differente.
+\end{enumerate}
+
+\section{Classi}
+
+Un oggetto è \emph{l'istanza} di una classe, la quale rappresenta la
+definizione del tipo di dato. In pratica è il prototipo da cui
+l'oggetto viene creato.
+
+Per creare una classe si utilizza la parola chiave \textbf{class}.
+\begin{lstlisting}[caption={Dichiarazione classe},
+  label={lst:clasDec}, language=Java]
+  class MyClass { 
+    //campi 
+    //costruttore 
+    //metodi 
+  }
+\end{lstlisting}
+
+Il codice tra le parentesi graffe appresenta la descrizione del ciclo
+di vita degli oggetti istanze della classe.
+\begin{itemize}
+\item campi descrivono lo stato della classe e
+  delle sue istanze
+\item Il costruttore descrive come la classe verrà
+  creata
+\item I metodi descrivono il comportamento della
+  classe e delle sue istanze
+\end{itemize}
+
+\subsection{Metodi}
+
+I metodi definiscono il comportamento di una classe. Un esempio di
+dichiarazione:
+
+\begin{lstlisting}[caption={Definizione metodo}, label={lst:MethDec},
+  language=Java]
+  public class Person {
+    private String firstName;
+    private String lastName;
+    public String getFullName(boolean invertedOrder) {
+      if(invertedOrder) {
+        return lastName+" "+firstName;
+      }
+      return firstName+" "+lastName;
+    }
+  }
+\end{lstlisting}
+
+La dichiarazione del metodo è composta dalle seguenti parti:
+\begin{itemize}
+\item zero o più modificatori (public o private)
+\item il tipo di ritorno (nel caso dell'esempio \ref{lst:MethDec},
+  String)
+\item il nome del metodo (getFullName)
+\item lista dei parametri (le variabili tra parentesi che vengono
+  prese dal metodo)
+\item corpo del metodo, ovvero l'algoritmo che deve svolgere
+\end{itemize}
+
+I metodi vanno scritti in Camel Case, non sono permessi gli spazi e si
+deve iniziare il nome con una lettera.
+
+\paragraph{Variabili}
+
+Ci sono diversi tipi di variabile (cfr. \ref{subsec:variables}):
+
+
+\begin{itemize}
+\item variabili locali: variabili di un metodo o di un blocco di codice
+\item parametri: variabili nella dichiarazione dei metodi (tra le
+  parentesi dei metodi)
+\item campi: variabili membro di una classe, come i metodi hanno dei
+  modificatori(public,  private o protected)
+\end{itemize}
+
+I modificatori controllano cosa è visibile dalle altre classi, ovvero
+se le altre classi possono accedere ad un campo.
+
+\begin{lstlisting}[caption={Passaggio di parametri}, label={lst:PassPar},
+  language=Java]
+  public static void main(String[] args) {
+    int x = 3;
+    increment(x);
+    System.out.println("valore di x = " + x);
+  }
+  public static void increment(int p) {
+    p = p + 1;
+  }
+}
+//Il valore di x stampato è 3
+\end{lstlisting}
+
+Gli argomenti di tipo primitivo, come ad esempio int o double, sono
+passati per valore. Qualsiasi cambiamento che avviene al parametro
+esiste solo all’interno del metodo. Quando il metodo ritorna, i
+parametri non sono più in scope e ogni cambiamento fatto è perduto.
+
+Per passare il parametro incrementato nell'esempio \ref{lst:PassPar} è
+necessario assegnare alla variabile x, increment(x) e inserire return
+p; all'interno del metodo increment.
+
+\paragraph{Overload}
+
+In Java è possibile fare overload di un metodo: si può dichiarare più
+di un metodo per classe con lo stesso nome, a patto che i parametri
+siano diversi
+
+\begin{lstlisting}[caption={Overload}, label={lst:Overload},
+  language=Java]
+
+  public class Drawer {
+    //...
+    public void draw(String s) {
+      //...
+    }
+    public void draw(int i) {
+      //...
+    }
+  }
+\end{lstlisting}
+
+Il tipo di ritorno non è invece considerato determinante, solo la
+lista dei parametri.
+
+Quando viene istanziata una classe viene invocato il costruttore, il
+quale contiene il codice per inizializzare un'istanza di una classe. 
+
+Questi hanno una dichiarazione simile a quella dei metodi, con due
+eccezioni:
+
+\begin{itemize}
+\item non c'è il tipo di ritorno
+\item il nome è uguale a quello della classe
+\end{itemize}
+
+Anche per i costruttori può essere fatto l'overload, chi utilizza la
+classe decide quale costruttore usare.
+
+\section{Oggetti}
+
+La classe rappresenta la definizione del tipo di dato e l'oggetto è
+l'istanza di una classe. In una normale applicazione, vengono creati
+molti oggetti che collaborano tra di loro per eseguire determinati
+compiti.
+
+
+\begin{lstlisting}[caption={Oggetti e istanziazione}, label={lst:ObjInst},
+  language=Java]
+  public class Rectangle {
+    private int width;
+    private int height;
+    public Rectangle(int width, int height) {
+      this.width = width;
+      this.height = height;
+    }
+    public int getArea() {
+      return width * height;
+    }
+  }
+
+  public class ObjectsExample {
+    public static void main(String[] args) {
+      Rectangle rect = new Rectangle(5, 3);
+      System.out.println("area = " + rect.getArea());
+    }
+  }
+\end{lstlisting}
+
+
+Tramite la keyword \textbf{new} è possibile istanziare un oggetto da
+una classe chiamando il suo costruttore.  Questo operatore richiede che
+venga specificato il costruttore della classe che si vuole istanziare
+e ritorna il riferimento all’oggetto che viene creato. Il riferimento
+viene solitamente assegnato ad una variabile, per essere utilizzato
+ma, se usato sul momento, questo passaggio non è necessario.
+
+Utilizzando l’operatore punto (.) è possibile far riferimento ad un
+campo o un metodo di un oggetto, a patto che questo sia visibile. La
+visibilità è determinata dai modificatore di accesso. I campi e metodi
+privati possono essere acceduti solo all’interno della classe che li
+ha dichiarati. Nell'esempio \ref{lst:ObjInst} il metodo getArea è
+visibile ma il campo width no.
+
+\subsection{Incapsulamento}
+Nascondere lo stato interno di un oggetto e costringere interagire con
+l’oggetto solo tramite i suoi metodi è un concetto noto come
+incapsulamento, ed è un principio fondamentale della programmazione ad
+oggetti.
+
+Supponiamo di avere la classe Rectangle, le misure devono essere
+positive (non ha senso che siano minori o uguali a 0). Di conseguenza
+posso mettere un controllo nel costruttore:
+
+\begin{lstlisting}[caption={}, label={lst:ConstrControl},
+  language=Java]
+  public class Rectangle {
+    public int width;
+    public int height;
+    public Rectangle(int width, int height) {
+      if( width <= 0 || height <= 0 ) {
+        throw new RuntimeException("Valori negativi non permessi")
+      }
+      this.width = width;
+      this.height = height;
+    }
+    public int getArea() {
+      return width * height;
+    }
+  }
+\end{lstlisting}
+
+In questo caso però è possibile modificare i valori della classe
+agendo direttamente sulle variabili width e height, per evitare questa
+eventualità pongo i modificatori private davanti alle variabili.
+
+Per scrivere o leggere le variabili, posso utilizzare metodi accessori
+detti getter e setter, in questo modo è possibile controllare la
+logica di accesso ai campi.
+
+\begin{lstlisting}[caption={}, label={lst:ConstrControl2},
+  language=Java]
+  public class Rectangle {
+    public int width;
+    public int height;
+    public Rectangle(int width, int height) {
+      setWidth(width);
+      setHeight(height);
+    }
+    public void setWidth(int width) {
+      if( width <= 0 ) {
+        throw new RuntimeException("Valori negativi non permessi")
+      }
+      this.width = width;
+    }
+    public void setHeight(int height) {
+      if(height <= 0 ) {
+        throw new RuntimeException("Valori negativi non permessi")
+      }
+      this.height = height;
+    }
+  }
+\end{lstlisting}
+
+Tramite getters e setters è anche possibile creare campi in sola
+lettura o in sola scrittura:
+\begin{itemize}
+\item I campi della nostra classe Rectangle sono
+  in sola scrittura (manca il metodo get)
+\item I campi con solo metodo get sono invece in
+  sola lettura
+\end{itemize}
+
+\paragraph{Passaggio parametri}
+Il codice esempio \ref{lst:PassParametri} restituisce in output il
+valore di 5.
+
+\begin{lstlisting}[caption={}, label={lst:PassParametri},
+  language=Java]
+  public class PassObjectParametersExample {
+    public static void main(String[] args) {
+      Rectangle rectangle = new Rectangle(5, 2);
+      System.out.println("larghezza " + rectangle.getWidth());
+    }
+    
+    public static void doSomething(Rectangle rect) {
+      rect.setWidth(10);
+      rect = new Rectangle(3, 2);
+    }
+  }
+\end{lstlisting}
+
+Questo accade perché anche i riferimenti agli oggetti vengono
+passati per valore! Quando il metodo conclude la sua esecuzione, il
+riferimento che viene passato è sempre lo stesso. I campi
+dell’oggetto, però, possono essere cambiati.
+
+\paragraph{this}
+Il riferimento \textbf{this} permette di riferirsi ad un campo di un
+oggetto anche se è stato oscurato da un parametro. È utilizzabile
+all'interno di un metodo o cosruttore di un'istanza di classe;
+comunemente questo avviene all'interno dei costruttori e dei metodi
+setters.
+
+\begin{lstlisting}[caption={}, label={lst:this},
+  language=Java]
+  public class Rectangle {
+    public int width;
+    public int height;
+    public Rectangle(int width, int height) {
+      this.width = width;
+      this.height = height;
+    }
+    public int getArea() {
+      return width * height;
+    }
+  }
+\end{lstlisting}
+
+Se nell'esempio \ref{lst:this} non usassi \textbf{this}, non riuscirei
+a riferirmi alle variabili width e height dichiarate nella classe, ma
+solo a quelle passate come parametro nel costruttore.
+
+\subsection{Static e Final}
+
+La keyword \textbf{static} può essere usata per definire campi e metodi che
+appartengono alla classe anziché all’istanza di essa. Campi e metodi
+statici possono essere utilizzati anche senza istanziare una classe.
+
+Sappiamo che da una classe possiamo ottenere molteplici istanze e per
+ciascuna istanza si hanno variabili dai nomi identici ma dai valori
+distinti (che puntano a locazioni di memoria diverse, sarebbe
+una definizione più chiara). Se poi vogliamo che una variabile sia la
+medesima per tutte le istanze di una classe sappiamo che la dobbiamo
+invece definire come \textbf{static}.
+
+Per i metodi avviene sostanzialmente la medesima cosa: possiamo
+pensare che dei metodi definiti in una classe ne esista normalmente
+(cioè se non si specifica static) una "copia" per ogni istanza della
+classe, mentre dei metodi statici ne esista una sola copia associata
+alla classe stessa. Per scendere più in dettaglio:
+\begin{itemize}
+\item i metodi non statici sono associati ad ogni singola istanza di
+  una classe e perciò il loro contesto di esecuzione (quindi l’insieme
+  delle variabili cui possono accedere) è relativo all’istanza stessa:
+  possono accedere e modificare le variabili dell’istanza e
+  modificarne lo stato
+\item in contapposizione i metodi statici non sono associati ad una
+  istanza ma solo ad una classe. Quindi non potranno interagire con le
+  variabili di istanza, ma solamente con quelle statiche
+\end{itemize}
+
+Questa distinzione tra metodi statici e metodi di istanza si riflette
+anche in una diversa sintassi che si deve utilizzare per eseguire i 2
+tipi di metodi:
+
+\begin{table}[ht]
+  \centering 
+  \begin{tabular}{lc} % centered columns (4 columns)
+    \hline %inserts double horizontal lines
+    Tipo di metodo & Sintassi\\
+    % heading
+    \hline % inserts single horizontal line
+    Statico                 &	NomeClasse.nomeMetodo(...)\\
+    Non statico (di istanza)  &	nomeIstanza.nomeMetodo(...)\\
+    \hline %inserts single line
+  \end{tabular}
+  \label{table:static} % is used to refer this table in the text
+\end{table}
+
+Per NomeClasse si intende il nome di una classe e non di una istanza
+(come si potrebbe intuire anche dalla convenzione per cui le istanze
+non iniziano mai con una lettera maiuscola).
+
+Per la precisione anche i metodi statici possono essere richiamati
+utilizzando una istanza invece che il nome della classe, ma questa è
+considerata una cattiva pratica e segnalata dal compilatore con un
+warning.
+
+\begin{lstlisting}[caption={}, label={lst:static}, language=Java]
+  public class Counter {
+    private static int numberOfOps;
+    private int count;
+    static {
+      numberOfOps = 0;
+    }
+    public Counter() {
+      count = 0;
+    }
+    public void increment() {
+      counter++;
+    }
+    public int getCount() {
+      return count;
+    }
+    public static int getNumberOfOps() {
+      return numberOfOps;
+    }
+  }
+
+  public class StaticExample {
+    public static void main(String] args) {
+      Counter counter1 = new Counter();
+      Counter counter2 = new Counter();
+      counter1.increment();
+      counter1.increment();
+      counter2.increment();
+      System.out.println(counter1.getCount());
+      System.out.println(counter2.getCount());
+      System.out.println(counter1.getNumberOfOps());
+      System.out.println(counter2.getNumberOfOps());
+    }
+  }
+\end{lstlisting}
+
+Ogni qual volta si definisce un metodo che dipende solamente dai suoi
+argomenti, è consigliabile definirlo in modo statico!
+
+La keyword \textbf{final}, invece, definisce variabili che non possono cambiare
+il proprio valore una volta assunto.
+
+\begin{lstlisting}[caption={}, label={lst:final}, language=Java]
+  public class Rectangle {
+    public final int width;
+    public final int height;
+    public Rectangle(int width, int height) {
+      this.width = width;
+      this.height = height;
+    }
+    this.width = 10; //errore di compilazione
+    public int getArea() {
+      return width * height;
+    }
+  }
+  
+\end{lstlisting}
+
+Nell'esempio \ref{lst:final} i valori vengono assegnati nel
+costruttore, se successivamente si prova ad assegnarli di nuovo, si
+ottiene un errore di compilazione.
+
+Tramite l’utilizzo di static, combinato con final, possono essere
+definite costanti.  Come convenzione, i nomi delle costanti sono
+scritte in maiuscolo, separate da "\_" se composti da più parole
+
+
+\section{Eccezioni e Call Stack}
+
+Un'eccezione è un evento che accade durante l’esecuzione del
+programma, e che interrompe il normale flusso di esecuzione.  
+
+Quando questo accade, viene generato un oggetto della classe Exception
+e viene passato al sistema, ovvero viene "lanciata" (\textbf{throw}) un
+eccezione che contiene tutte le informazioni sull’errore: tipo,
+messaggio, stato del programma, etc.
+
+Dopo che è stata lanciata un’eccezione, il sistema cerca qualcuno che
+sappia come gestirla, percorrendo in ordine inverso la lista dei
+metodi che sono stati chiamati. Se non viene trovato nessuno, il
+sistema si arresta e stampa lo stack delle chiamate, chiamato \textbf{stack
+  trace}.
+
+L'errore più facile da ottenere quando si lavora con gli oggetti è il
+Null Pointer Exception, comunemente viene lanciata quando si
+interagisce con oggetti ancora non istanziati.
+
+Le eccezioni possono essere di tipo:
+\begin{itemize}
+\item checked, rappresentano eccezioni da cui il codice deve saper
+  anticipare e gestire (per esempio un utente specifica il nome di un
+  file da aprire, ma il file non esiste)
+\item unchecked:
+  \begin{itemize}
+  \item errori, rappresentano eccezioni esterne all’applicazione, la
+    quale solitamente non può prevederne l’arrivo (per esempio
+    l’applicazione apre un file, ma non riesce a leggerlo perché il
+    filesystem ha avuto un problema)
+  \item Runtime exceptions, rappresentano eccezioni interne
+    all’applicazione, la quale solitamente non può prevederne l’arrivo
+    (Bug, errori di logica o uso errato di una API, per esempio il
+    NullPointerException)
+  \end{itemize}
+\end{itemize}
+
+Ogni statement che potrebbe lanciare eccezioni di tipo checked, deve
+essere contenuto in uno statement di try, che si occupa di
+"acchiappare" (catch) l’eccezione e gestirla o in un metodo che
+specifica che può lanciare eccezioni (specificando una lista di
+eccezioni che possono essere lanciate). Anche le eccezioni di tipo
+unchecked possono essere trattate nello stesso modo, anche se non è
+obbligatorio.
+
+Scriviamo la funzione \ref{lst:tryCatch} che legge da un file, e
+stampa il contenuto per riga.
+
+\begin{lstlisting}[caption={}, label={lst:tryCatch}, language=Java]
+  public void printFileLines(String fileName) {
+    BufferedReader reader = null;
+    try {
+      reader = new BufferedReader(new FileReader(fileName));
+      String line;
+      while( (line = reader.readLine()) != null ) {
+        System.out.println(line);
+      }
+    } catch (FileNotFoundException ex1) {
+      System.out.println("impossibile aprire file");
+    } catch (IOException ex2) {
+      System.out.println("impossibile leggere file");
+    } finally {
+      if(reader != null) {
+        try {
+          reader.close();
+        } catch (IOException e) {
+          System.out.println("errore durante la chiusura del reader");
+        }
+      }
+    }
+  }
+  
+\end{lstlisting}
+
+Il blocco di \textbf{try} contiene codice che può lanciare eccezioni
+checked, può essere fatto un solo blocco per tutti gli statement,
+oppure un blocco per ogni statement.
+
+Ogni blocco \textbf{catch} gestisce un'eccezione specificata tra
+parentesi nella dichiarazione, se si verigica un'eccezione viene
+invocato il blocco corrispondente.
+
+Il blocco \textbf{finally} viene sempre invocato indipendentemente
+dall'esecuzione di try e catch. Solitamente contiene codice di
+"pulizia" e rilascio risorse (può esistere anche senza catch).
+
+Il try-with-resource, invece, permette di gestire automaticamente la
+chiusura di risorse. Le classi devono implementare l’interfaccia
+\textbf{AutoCloseable}.
+
+\begin{lstlisting}[caption={}, label={lst:tryRes}, language=Java]
+  public void printFileLines(String fileName) {
+    try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+      String line;
+      while( (line = reader.readLine()) != null ) {
+        System.out.println(line);
+      }
+    } catch (FileNotFoundException ex1) {
+      System.out.println("impossibile aprire file");
+    } catch (IOException ex2) {
+      System.out.println("impossibile leggere file");
+    }
+  }
+  
+\end{lstlisting}
+
+Se la gestione dell’errore avviene allo stesso modo per tutti i
+blocchi catch, allora è possibile scrivere in modo più compatto,
+utilizzando un multi catch:
+
+\begin{lstlisting}[caption={}, label={lst:multi}, language=Java]
+  catch (IOException | SQLException ex) {
+    logger.log(ex);
+    throw ex;
+  }
+\end{lstlisting}
+
+L’alternativa è dichiarare le eccezioni lanciate da un metodo, tramite
+la keyword \textbf{throw} (insieme ad un oggetto di tipo
+\textbf{Throwable}), in questo modo è possibile delegare la gestione
+dell’eccezione.
+
+\begin{lstlisting}[caption={}, label={lst:multi2}, language=Java]
+  String fileContent = readFile("file.txt");
+  boolean isDataCorrect = validateFile( fileContent );
+  if (!isDataCorrect ) {
+    throw new IllegalStateException("file content are not valid");
+  }
+  importFile( fileContent );
+\end{lstlisting}
+
+La gerarchia Throwable si divide in Error ed Exception, quest’ultime
+sono a loro volta specificate da RuntimeException. Solitamente si
+lanciano sottoclassi di Exception, le Error sono riservate per
+problemi di sistema più complessi.  
+
+È possibile creare delle eccezioni estendendo la classe Exception (o
+RuntimeException), questo può essere utile quando si vuole
+differenziare un errore da un altro o si vuole evitare che l’eccezione
+si confonda con altre già presenti nel codice.
+
+Quando si istanzia una classe della gerarchia delle eccezioni, è
+possibile passare nel costruttore il riferimento ad un’altra
+eccezione, questo serve per creare una "catena" che aiuta il
+programmatore a capire l’origine del problema.
+
+\begin{lstlisting}[caption={}, label={lst:exception}, language=Java]
+  catch (IOException | SQLException ex) {
+    logger.log(ex);
+    throw new MyCustomException(ex);
+  }
+\end{lstlisting}
+
+\section{Annotazioni}
+
+Possiamo definire un'annotazione come un appunto che mettiamo per
+specificare qualcosa relativo al codice che stiamo scrivendo, un
+attributo particolare, un metodo o una classe che hanno delle
+peculiarità. Attraverso questo meccanismo siamo capaci di dare
+espressività al codice, di renderlo più leggibile agli occhi di altri
+sviluppatori ma soprattutto agli occhi del compilatore.
+
+Le annotations, infatti, sono delle annotazioni per il compilatore (o
+per chi si occupa del deploy dell'applicazione) che, attraverso di
+esse avrà la possibilità di effettuare determinate operazioni.
+
+Questo paradigma, oltre a rendere più espressivo il codice sorgente,
+permette una migliore manutenzione dello stesso. Utilizzando le
+opportune annotations, infatti, riusciremo ad evitare possibili errori
+di compilazione, oppure, meglio ancora, potremo delegare a strumenti
+esterni la configurazione dell'applicazione che stiamo scrivendo
+(nell'ultima parte dell'articolo vedremo le annotations in ambiente
+enterprise).
+
+La stessa Sun definisce gli usi delle annotazioni come di seguito:
+
+\begin{itemize}
+\item per informare il compilatore
+\item per processare a tempo di compilazione (o di deploy)
+\item per processare a run time
+\end{itemize}
+
+Le ultime due caratteristiche sono tipiche degli ambienti enterprise,
+che le possono utilizzare mediante reflection.
+
+
+Un'annotazione si presenta nella seguente forma:
+
+\begin{lstlisting}[caption={In questo esempio abbiamo annotato la classe con l'annotation Autore
+    ed i due attributi name e company.}, label={lst:annotations}, language=Java]
+  @Autore(
+  name = "Pasquale Congiusti",
+  company = "HTML.it"
+  )
+  class ClasseAnnotata() {
+    ...
+  }
+\end{lstlisting}
+Ogni annotazione si presenta con il simbolo @ seguito dal nome
+dell'annotazione. Eventualmente può essere valorizzata con dei valori,
+tra parentesi tonde come coppia nome-valore. Essa precede la classe,
+il metodo o l'attributo che vogliamo annotare.
+
+\subsection{Tipi di Annotations}
+
+\paragraph{@Deprecated} 
+L'annotazione @Deprecated viene utilizzata per specificare che
+l'elemento indicato è un elemento deprecato, cioè, attivo (per
+mantenere retrocompatibilità) ma non consigliato perché rimpiazzato da
+uno nuovo e supportato.
+
+\begin{lstlisting}[caption={}, label={lst:deprecated}, language=Java]
+  public class TestDeprecated {
+    @Deprecated
+    public void metodoA() {
+      System.out.println("Questo metodo e' DEPRECATO, usa metodoB().");
+    }
+
+    public void metodoB() {
+      System.out.println("Questo metodo e' SUPPORTATO");
+    }
+  }
+
+
+\end{lstlisting}
+
+La compilazione del listato \ref{lst:deprecated} non darà alcun
+segnale, procederà tutto normalmente. Sarà la compilazione della
+classe che userà TestDeprecated a ricevere segnalazioni di warning dal
+compilatore quando viene utilizzato il metodo metodoA().
+
+
+\paragraph{@Override} 
+L'annotation @Override è probabilmente la più utile in quanto consente
+di evitare degli errori, che in fase di codifica spesso
+accadono. L'annotazione dice che l'elemento indicato è un elemento che
+fa l'override (sovrascrive) del relativo elemento, del genitore da cui
+eredita.
+
+\begin{lstlisting}[caption={}, label={lst:override}, language=Java]
+  public class TestDeprecated {
+    class A{
+      void metodo1(){
+        System.out.println("Metodo 1");
+      }
+    }
+
+    class B extends A{
+      @Override
+      void metodoo1(){
+        System.out.println("Override A.metodo1()");
+      }
+    }
+  }
+\end{lstlisting}
+
+Abbiamo la classe genitore A, che presenta un metodo,
+metodo1(). Creiamo una classe B, erede di A. Vogliamo fare l'override
+di metodo1(), quindi annotiamo il metodo presente nella classe B con
+l'annotazione @Override, indicando che il metodo annotato è un metodo
+che sovrascrive un metodo del genitore.
+
+Compilando il codice, il compilatore restituirà un errore. Se
+notate, infatti, ho inserito un errore di battitura nel nome del
+metodo. Senza l'annotazione @Override la compilazione sarebbe andata a
+buon fine.
+
+
+\paragraph{@SuppressWarning}
+L'annotazione @SuppressWarning è utile quando vogliamo sopprimere le
+indicazioni di warning da parte del compilatore, ad esempio, perché
+stiamo usando dei metodi deprecati.
+
+
+\begin{lstlisting}[caption={}, label={lst:suppressedWarning}, language=Java]
+  @SuppressWarnings({"deprecation"})
+  public void usaMetodoDeprecato() {
+    TestDeprecated t = new TestDeprecated();
+    t.metodoA();
+  }
+\end{lstlisting}
+
+Pur usando dei metodi deprecated, al compilatore abbiamo segnalato di
+sopprimere i warning.
+
+\paragraph{@Target}
+Indica a quali elementi può essere applicata un'annotazione e serve
+per aggiungere restrizioni sull'utilizzo.  Alcuni esempi sono:
+\begin{itemize}
+\item ElementType.CONSTRUCTOR
+\item ElementType.FIELD
+\item ElementType.METHOD
+\end{itemize}
+
+
+\subsection{Creare e utilizzare nuove annotazioni}
+Le annotazioni di default sono di sicuro interesse, in quanto
+permettono di migliorare alcuni aspetti nelle fasi di compilazione,
+facendo sì che lo sviluppatore possa fare a meno di preoccuparsi di
+alcuni potenziali errori di codifica.
+
+La cosa che rende le annotations uno strumento davvero importante,
+tanto da alterare il tipico paradigma di programmazione, è la
+possibilità di effettuare introspezione del codice.
+
+Con la reflection è possibile valutare a runtime quali annotations
+sono presenti (e quali valori hanno in esse) e quindi effettuare
+determinate operazioni. Possiamo pensare ad un framework che gestica
+la persistenza con un database, dove all'interno del codice sono
+presenti delle annotations che indicano come mappare attributi di
+classe su colonne di database. Oppure utilizzare uno strumento
+personalizzato per team di sviluppo per commentare opportunamente il
+codice, chi ne modifica i metodi, chi li crea e quando e così via, per
+mantenere traccia del lavoro svolto.
+
+
+\begin{lstlisting}[caption={}, label={lst:creaAnnot}, language=Java]
+  package it.html.annotations;
+
+  import java.lang.annotation.Retention;
+  import static java.lang.annotation.RetentionPolicy.RUNTIME;
+  /**
+  * Una semplice annotation, usata per segnare gli elementi
+  * (classe, attributo, metodo), l'autore di quell'elemento e
+  * l'azienda.
+  */
+
+  @Retention(RUNTIME)
+  public @interface MyAnnotation {
+    public String value();
+    public String author();
+    public String company() default "HTML.it";
+  }
+\end{lstlisting}
+
+L'annotazione viene creata con il comando @interface, seguito dal nome
+dell'annotazione stessa. Si tratta di classi java, pertanto
+esse seguono le stesse regole relative a package e import.
+
+L'annotazione è (nel nostro caso) preceduta da un'altra annotazione,
+@Retention, che specifica il livello di introspezione desiderato. Ne
+esistono tre: 
+\begin{itemize}
+\item RUNTIME, da usare se si vuole che l'annotazione sia utilizzabile
+  dalla JVM, durante l'esecuzione (a runtime, appunto)
+\item CLASS se si vuole che l'annotazione sia visibile solo dal
+  compilatore
+\item  SOURCE se l'annotazione non deve essere
+  visibile (quindi usata meramente come commento al codice sorgente).
+\end{itemize}
+Il corpo dell'annotation può contenere, o meno, delle proprietà. Nel
+secondo caso si parla di marker annotation, utilizzate per marcare uno
+specifico elemento. Il primo caso è quello che ci riguarda e, come
+vediamo dall'esempio, è molto simile a quanto si fa con le interfacce.
+
+Noi abbiamo definito tre parametri, tutti e tre stringa nominati:
+value, author e company.
+
+I tipi che possono essere utilizzati sono i tipi primitivi (i numeri),
+le stringhe, enum, class, altre annotazioni ed array dei tipi appena
+menzionati. Una possibilità è quella di definire dei valori di
+default, come abbiamo fatto nel caso del parametro company.  
+
+L'annotazione può essere creata avendo come target solo i metodi,
+oppure solo i costruttori. Potrebbe avere come target solo la classe o
+i suoi attributi. In tal caso si usa l'annotazione @Target che
+specifica appunto il tipo per cui l'annotation è stata pensata. Se
+avessimo voluto utilizzarla avremmo dovuto scrivere:
+
+\begin{lstlisting}[caption={}, label={lst:target}, language=Java]
+  @Retention(value=RUNTIME)
+  @Target(value=XYZ)
+  public @interface MyAnnotation{
+    ...
+  }
+\end{lstlisting}
+
+Dove il valore XYZ doveva essere rimpiazzato con: TYPE, FIELD, METHOD,
+PARAMETER, CONSTRUCTOR, LOCAL\_VARIABLE, ANNOTATION\_TYPE,
+PACKAGE. Tutto dipende dal fatto di voler forzare un'annotazione ad
+uno specifico tipo.
+
+\begin{lstlisting}[caption={Una classe che usa l'annotazione}, label={lst:usaAnnotazione}, language=Java]
+  package it.html.annotations;
+
+  import java.lang.reflect.Constructor;
+  import java.lang.reflect.Field;
+  import java.lang.reflect.Method;
+
+  //Qui la usiamo a livello di classe
+  @MyAnnotation(value="class",author="Pippo")
+  public class SimpleAnnotationUse {
+    //qui, a livello di attributo
+    @MyAnnotation(value="attribute",author="Pippo")
+    public String saluto;
+
+    //qui, a livello di costruttore
+    @MyAnnotation(value="costruttore",author="Pippo")
+    public SimpleAnnotationUse(){
+      this.saluto="Hello World!";
+    }
+
+    //qui, a livello di metodo
+    @MyAnnotation(value="method",author="Zio Paperone",company="Gugol")
+    public String getSaluto(){
+      return saluto;
+    }
+    ...
+  }
+
+
+\end{lstlisting}
+
+Ogni elemento della classe (e la classe stessa) vengono annotati con
+il valore indicante l'elemento stesso, il nome dell'autore e l'azienda
+(laddove l'azienda manca, verrà recuperato il valore di default).
+
+
+\begin{lstlisting}[caption={Classe che fa introspezione della classe, dei metodi e degli attributi}, label={lst:Introspezione}, language=Java]
+  public static void main(String args[]) throws NoSuchMethodException, NoSuchFieldException{
+    System.out.println("Working Annotations...");
+
+    //Accesso alla classe
+    Class<SimpleAnnotationUse> c = SimpleAnnotationUse.class;
+
+    //Mostra annotazioni
+    System.out.println("Annotazione di classe: ");
+    System.out.println(c.getAnnotation( MyAnnotation.class ));
+
+    //Metodo costruttore
+    Constructor<SimpleAnnotationUse> constructor = c.getConstructor((Class[]) null);
+    System.out.println("Annotazione costruttore: ");
+    System.out.println(constructor.getAnnotation(MyAnnotation.class));
+
+    //Metodo getSaluto
+    Method method = c.getMethod( "getSaluto" );
+    System.out.println("Annotazione metodo getSaluto(): ");
+    System.out.println(method.getAnnotation(MyAnnotation.class));
+
+    //Campo saluto
+    Field field = c.getField("saluto");
+    System.out.println("Annotazione attributo saluto: ");
+    System.out.println(field.getAnnotation(MyAnnotation.class));
+  }  
+\end{lstlisting}
+
+Il main proposto nel listato \ref{lst:introspezione} fa introspezione
+della classe, dei metodi e degli attributi, utilizzando il metodo
+getAnnotation(). In questo caso verrà stampato semplicemente il
+valore, ma i casi d'uso che si aprono sono veramente innumerevoli.
+
+\section{Package e Import}
+
+Un package permette di organizzare un insieme di classi che hanno
+relazioni fra di loro, tramite la dichiarazione di un percorso, è
+concettualmente simile alle cartelle su filesystem. Questo permette
+anche la creazione di classi con lo stesso nome, sotto package
+diversi.
+
+Esistono delle convenzioni sui nomi dei package che servono sia per
+uniformare il modo di selezionare i nomi dei package, sia per evitare
+conflitti tra sviluppatori nel mondo.
+
+Convenzioni:
+\begin{itemize}
+\item Utilizzare il minuscolo (evita conflitto col nome delle classi)
+\item Utilizzare il nome invertito del dominio di chi ha sviluppato
+  l'estensione
+\end{itemize}
+
+Per poter utilizzare una classe definita in un altro package, è
+necessario riferirsi ad essa tramite il nome completo di package
+
+\begin{lstlisting}[caption={}, label={}, language=Java]
+  com.example.geometry.Rectangle rect = new com.example.geometry.Rectangle(5, 4);
+\end{lstlisting}
+
+Per rendere più semplice la gestione delle classi, è possibile
+definire separatamente il package dalla dichiarazione della classe.
+
+\begin{lstlisting}[caption={}, label={}, language=Java]
+  import com.example.geometry.Rectangle
+  ...
+  Rectangle rect = new Rectangle(5, 4);
+\end{lstlisting}
+
+
+Nel caso si dovesse utilizzare due classi con lo stesso nome nella
+stessa classe, non è possibile dichiararli entrambi nell'import, in
+quel caso, una delle due classi deve essere riferita in modo esplicito
+specificando tutto il percorso.
+
+
+Una classe viene caricata dalla virtual machine solo quando viene
+utilizzata in un altra classe (lazy load). Per trovare una classe la
+VM utilizza il nome del file .class associato alla classe stessa: Il
+path del file viene generato tramite il nome del package associato
+alla classe. Se il file viene trovato viene caricato dalla VM,
+altrimenti viene sollevata un eccezione
+
+In java è possibile creare applicazioni i cui file .class stanno su
+differenti strutture di cartelle.  I nomi dei package sono costruiti
+rispettivamente a partire dalla cartella root di ogni struttura; ogni
+cartella root di queste strutture costituisce un componente del
+classpath di esecuzione.
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{/home/simone/informatica/Appunti/Java/immagini/classpath.png}
+\end{figure}
+\FloatBarrier
+Un insieme di file .class con la propria struttura di cartelle può
+essere impacchettato all'interno di un file .jar. Un jar può essere
+utilizzato come componente del classpath, in questo caso la cartella
+root è la root della cartella compressa e la virtual machine è in
+grado di caricare i .class direttamente dal file compresso. Le
+librerie java sono semplici file .jar.
+
+\section{Enum}
+
+Gli Enum sono un tipo di dato che permette la specifica di una
+variabile come un insieme di costanti predefinite, vengono definite
+con la keyword \textbf{enum}.
+
+
+\begin{lstlisting}[caption={}, label={}, language=Java]
+  public enum CardinalDirection {
+    NORTH,
+    SOUTH,
+    EAST,
+    WEST
+  }
+\end{lstlisting}
+
+
+Gli enum in Java sono difatto delle classi ed è possibile utilizzare
+tutti i costrutti che normalmente si utilizzerebbero con le classi. Il
+costruttore degli enum deve essere dichiato private o package-private.
+
+\begin{lstlisting}[caption={}, label={}, language=Java]
+  public enum CardinalDirection {
+    NORTH ("N"),
+    SOUTH ("S"),
+    EAST ("E"),
+    WEST ("W");
+    private final String abbreviation;
+    private CardinalDirection (String abbreviation) {
+      this.abbreviation = abbreviation;
+    }
+    public String getAbbreviation() {
+      return abbreviation;
+    }
+  }
+\end{lstlisting}
+
+Java aggiunge automaticamente alcuni metodi agli enum:
+\begin{itemize}
+\item values(), permette di ottenere un'array di tutti i valori, in
+  modo da facilitare l'iterazione
+\item name() permette di ottenere una stringa che rappresenta il nome
+  dell'enum
+\end{itemize}
+
+
+\section{Alcuni approfondimenti}
+
+
+\subsection{Return}
+
+Un metodo ritorna al codice che l'ha invocato quando:
+\begin{itemize}
+\item completa tutti gli statement che contiene
+\item raggiunge uno statement di tipo return
+\end{itemize}
+
+Se non si vuole che il metodo ritorni alcun valore, si deve dichiarare
+il metodo come \textbf{void}; in questo modo il metodo non deve
+necessariamente contenere uno statement di tipo return (anche se è
+comunque utilizzabile come metodo per il controllo di flusso).
+
+\subsection{Garbage Collector}
+Quando un oggetto non serve più, deve essere distrutto per liberare la
+memoria che occupa e fare spazio ad altri oggetti: gestire a mano
+questo tipo di operazione può essere tedioso e incline all'errore (non
+è facile capire quando è che un oggetto non serve più).
+
+La Java Virtual Machine è capace di gestire automaticamente la
+cancellazione di oggetti che non servono più, ovvero degli oggetti che
+non sono referenziati da nessuno (per esempio la variabile è uscita
+dallo scope). Questo processo si chiama Garbage Collection.
+
+\subsection{Primitive Type Wrappers}
+
+
+Java fornisce delle classi di wrapper per tutti i tipi primitivi (ad
+esempio Integer per int, Boolean per boolean, ecc.).  Questo permette
+di avere lo stesso comportamento, ma lavorando con oggetti (che hanno
+dei metodi e costanti), inoltre questi wrapper sono intercambiabili
+coi tipi primitivi.
+
+
+\chapter{Interfacce e Ereditarietà}
+
+\section{Interfacce}
+Esistono situazioni in cui gruppi di programmatori devono concordare
+su come il loro codice interagisce (esempio: come la parte grafica di
+una applicazione interagisce con la parte operativa); serve quindi un
+"contratto" che rappresenti queste specifiche: le interfacce
+rappresentano tale contratto.
+
+In Java un'interfaccia è un tipo:
+\begin{itemize}
+\item È simile ad una classe
+\item può contenere (principalmente) solo
+  costanti e metodi non implementati
+\item non può contenere metodi implementati
+\item non possono essere istanziate
+\end{itemize}
+
+
+\begin{lstlisting}[caption={Interfaccia},
+  label={lst:Interface},language=Java]
+  public interface Shape {
+    // costanti
+    // metodi senza implementazione
+    int getPerimeter();
+    int getArea();
+  }
+\end{lstlisting}
+
+Un'interfaccia viene utilizzata nel momento in cui viene scritta una
+classe che la implementa e lo si fa utilizzando la keyword \textbf{implements}, di
+seguito alla dichiarazione della classe. Quando una classe implementa
+un interfaccia, deve fornire un'implementazione per tutti i metodi
+dichiarati in quell'interfaccia.
+
+\begin{lstlisting}[caption={Implementazione interfaccia},
+  label={lst:Implements},language=Java]
+  Public class Rectangle implements Shape {
+    public int width;
+    public int height;
+    public Rectangle(int width, int height) {
+      this.width = width;
+      this.height = height;
+    }
+    public int getPerimeter() {
+      return (width + height)*2;
+    }
+    public int getArea() {
+      return width * height;
+    }
+  }
+}
+\end{lstlisting}
+
+Una classe può implementare più di un interfaccia separando le
+implementazioni con una virgola. L'unico vincolo è che implementi
+tutti i metodi che eredita dalle interfacce.
+In Java, definire un interfaccia equivale a definire un
+tipo. È possibile utilizzare l'interfaccia in una dichiarazione
+
+\begin{lstlisting}[caption={Dichiarazione interfaccia},
+  label={lst:interfaceDec},language=Java]
+  Shape aShape = new Rectangle(5, 3);
+  Relatable aRelatableObj = new Rectangle(5, 3);
+\end{lstlisting}
+Quando si assegna il valore, questo deve essere un'istanza di una
+classe che implementa quell'interfaccia.
+
+Anche se l'istanza è di un certo tipo, fa fede quello che è stato
+usato nella dichiarazione (nel caso del codice \ref{lst:interfaceDec},
+un'interfaccia). Saranno visibili solo i metodi dichiarati in
+quell'interfaccia.
+
+Grazie alle interfacce, è possibile scrivere codice che opera in modo
+agnostico rispetto all'implementazione. Questo permette di cambiare
+l'oggetto utilizzato, senza dover riscrivere codice.
+\subsection{Default Methods}
+I Default Methods permettono di aggiungere nuove funzionalità alle
+interfacce, senza “rompere” la compatibilità con le vecchie versioni.
+Supponiamo di avere una classe che implementa un'interfaccia,
+e che successivamente si voglia modificare l'interfaccia per aggiungere un
+nuovo metodo. Invece che definirlo come metodo astratto si può
+definire una Default implementation. Per farlo si utilizza la keyword
+\textbf{default} davanti al metodo (che sono implicitmente public). In
+questo modo non devi modificare la classe che implementa
+l'interfaccia.
+
+In caso si voglia estendere un'interfaccia che contiene un default
+method, si possono fare le seguenti cose:
+\begin{itemize}
+\item non menzionare il default metho
+\item ridichiarare il default method rendendolo astratto
+\item ridefinire il default method facendo l'override
+\end{itemize}
+
+
+
+\section{Ereditarietà}
+Nella programmazione ad oggetti, una classe può ereditare da un'altra,
+utilizzando la keyword extends si stabilisce una relazione
+padre-figlio tra due classi. La classe padre è chiamata superclasse,
+la classe figlio sottoclasse. Quando si eredita, la classe figlio
+ottiene l'accesso a campi e metodi della classe padre, se la
+visibilità lo permette. 
+
+Ogni classe può ereditare direttamente solo da una classe (non esiste
+ereditarietà multipla) e, se non viene specificata una superclasse,
+eredita implicitamente da java.lang.Object (l’unica classe a non avere
+superclasse), dalla quale ogni oggetto Java eredita, per esempio, i
+metodi hashCode(), getClass(), toString().
+
+L’ereditarietà permette di creare gerarchie di classi che includono
+campi e metodi comuni. Il costruttore non viene mai ereditato, ma può
+essere acceduto.
+
+\begin{lstlisting}[caption={Un esempio di ereditarietà nel quale intendiamo dare una bozza di modello per un generico magazzino in cui parte dei colli sono per la vendita},
+  label={lst:Ereditarieta},language=Java]
+  public class Collo {
+    
+    // dati
+    private int x_size, y_size, z_size;
+    protected int weight;
+
+    // funzione getter di Weight
+    public int getWeight() { return weight; }
+
+    // Costruttore
+    public Collo(int w, int xs, int ys, int zs) {
+      
+      this.weight = w;
+      this.x_size = xs;
+      this.y_size = ys;
+      this.z_size = zs;
+    }
+    
+    public int getVolume() {
+      
+      return x_size * y_size * z_size;
+    }
+  }
+
+
+  public class ColloInVendita extends Collo {
+    
+    // dati (oltre quelli di Collo)
+    private int price;
+    
+    // coefficienti da applicare alla vendita
+    private static final float A0 = 1;   
+    private static final float B0 = 1.2; 
+    private static final float C0 = 1.5; 
+
+    public int getPrice() {
+      return price;
+    }
+
+    // Costruttore della classe derivata
+    public ColloInVendita(int w, int xs, int ys, int zs, int price) {
+      
+      // richiama il costruttore della classe base
+      super(w, xs, ys, zs); 
+      this.price = price;
+    }
+    
+    public float getDeliveryCost() {
+      return A0*weight + B0*getVolume() + C0*price;
+    }
+  }
+
+\end{lstlisting}
+
+È utile osservare come, nella dichiarazione di ColloInVendita, siano
+utilizzabili sia i metodi che i field (a patto che siano public o
+protected) della super-classe Collo, che possono essere eventualmente
+prefissati con la keyword super utile per eventuali disambiguazioni.
+
+Il costruttore della classe ColloInVendita (derivata) deve essere in
+grado di costruire una istanza della classe Collo e quindi se per
+quest’ultima non è previsto un costruttore senza argomenti, la classe
+derivata lo dovrà chiamare esplicitamente passandogli gli argomenti
+necessari con la sintassi super() che deve essere obbligatoriamente
+il primo statement del costruttore della classe figlia.
+
+Una sottoclasse eredita:
+\begin{itemize}
+\item tutti i campi e metodi dichiarati public e protected
+\item tutti i campi package-private, se la superclasse è nello stesso
+  package
+\item nessun campo o metodo private
+\end{itemize}
+Tutti i campi e i metodi ereditati, possono essere usati direttamente
+nella sottoclasse.
+
+In una sottoclasse si possono dichiarare nuovi campi, se si dichiara
+un campo con lo stesso nome di un campo presente nella superclasse,
+allora si sta "nascondendo" tale campo (sconsigliato) e il campo della
+superclasse non sarà più direttamente accessibile.
+
+Se un campo è dichiarato come private (per l’incapsulamento), allora
+una sottoclasse non lo eredita; se però è stato fornito un metodo di
+accesso (getter/setter), allora la sottoclasse può accedere al campo.
+
+In una sottoclasse si possono dichiarare nuovi metodi, se si dichiara
+un metodo con la stessa firma (i.e. nome, parametri e tipo di ritorno)
+di un metodo nella superclasse, allora si sta facendo l’override di
+tale metodo; nel caso di un metodo statico, si sta nascondendo (non ha
+senso override di metodi statici).
+
+\subsection{Override}
+
+Il metodo che fa override deve avere
+\begin{itemize}
+\item lo stesso nome
+\item lo stesso numero, tipo e ordine di parametri
+\item lo stesso tipo di ritorno
+\item Il tipo di ritorno può essere anche una sottoclasse del tipo di
+  ritorno del metodo sovrascritto
+\end{itemize}
+
+L’annotazione @Override viene usata per indicare al compilatore la
+volontà di fare override, non è obbligatoria, ma serve per evitare
+eventuali errori.
+
+Quando si fa l'override, si può dare più visibilità, ma non si possono
+dichiarare metodi meno visibili.
+
+\subsection{Cast}
+
+Il cast permette di forzare il tipo di una variabile ad un altro, a
+patto che i tipi appartengano alla stessa gerarchia.
+
+
+\begin{lstlisting}[caption={},
+  label={lst:Cast},language=Java]
+  //Implicito
+  Object o = new Rectangle();
+  Shape s = new Rectangle();
+  Shape s = new Square();
+  Rectangle r = new Square();
+
+  //Esplicito
+  Shape s = new Rectangle();
+
+  Rectangle r = (Rectangle)s;
+
+  Square s = (Square)o;
+\end{lstlisting}
+
+
+Se si tenta di castare un oggetto rettangolo come triangolo, il
+compilatore lo segnerà come corretto ma a runtime verrà sollevata
+un'eccezione (\textbf{ClassCastException}).
+
+Per non avere problemi di cast si può usare instance of in modo da
+testare la classe di un'istanza prima di fare il cast.
+
+\begin{lstlisting}[caption={},
+  label={lst:InstanceOf},language=Java]
+
+  Shape s = new Rectangle();
+  if(s instanceof Triangle) {
+    Triangle t = (Triangle) s;
+  }
+
+\end{lstlisting}
+
+\subsection{Polimorfismo}
+
+In OOP, il polimorfismo si riferisce alla capacità di una oggetto di
+essere istanza di più tipi (classi e/o interfacce). Questo apre la
+strada alla scrittura di codice che opera su tipi più o meno generali,
+in modo da ottenere il giusto grado di astrazione e di
+disaccoppiamento.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{/home/simone/informatica/Appunti/Java/immagini/polimorfismo.png}
+\end{figure}
+
+\paragraph{super} La keyword super permette di accedere a metodi e
+campi della superclasse o per invocare un costruttore della classe
+padre.
+
+\paragraph{final} Tramite la keyword final è possibile definire un
+metodo di cui non può essere fatto l’override oppure definire una
+classe che non può essere estesa da nessuna sottoclasse, utile per
+classi immutabili (e.g. String).
+
+\subsection{Classi e metodi astratti}
+
+Una classe o un metodo possono essere
+astratte:
+\begin{itemize}
+\item Un metodo astratto viene dichiarato senza implementazione ed è
+  contenuto in una classe astratta o in una interfaccia (i metodi
+  delle interfacce sono implicitamente astratti);
+\item Una classe astratta non può essere istanziata, ma può essere
+  estesa, quando viene estesa deve fornire un’implementazione per
+  tutti i metodi astratti dichiarati nella classe
+\end{itemize}
+
+Le classi astratte e le interfacce presentano alcune caratteristiche
+simili ma altrettante differenze:
+\begin{table}[ht]
+  \begin{tabularx}{\textwidth}{*{2}{X}} % centered columns (4 columns)
+    \hline %inserts double horizontal lines
+    Similarità & Differenze\\
+    % heading
+    \hline % inserts single horizontal line
+    non possono essere istanziate                         & nelle
+    classi astratte si possono dichiarare campi	\\
+    &\\
+    possono contenere metodi senza o con implementazione  & nelle
+    interfacce si possono definire solo metodi pubblici\\
+    &\\
+    &       si può estendere solo una classe astratta, ma si
+    possono implementare più di un’interfaccia                      \\
+    \hline %inserts single line
+  \end{tabularx}
+  \label{table:abstractInterface} % is used to refer this table in the text
+\end{table}
+
+Situazioni in cui usare classi astratte:
+\begin{itemize}
+\item quando si vuole condividere codice fra più classi
+  che hanno lo stesso dominio
+\item quando si vuole definire una classe da estendere,
+  che comprende campi e metodi non pubblici
+\end{itemize}
+
+Situazioni in cui usare interfacce:
+\begin{itemize}
+\item quando si vuole definire un comportamento
+  implementabile da classi di dominio diverso
+\item quando si vuole sfruttare l’ereditarietà multiple
+\end{itemize}
+
+\subsection{Nested Classes}
+
+Una nested Classes, è una classe definita all’interno di un’altra
+classe:
+\begin{itemize}
+\item è un campo della classe all’interno della quale
+  è stata dichiarata
+\item può essere dichiarata private, public, protected
+  o package private
+\item accede a tutti i campi della classe che la
+  racchiude, anche privati
+\item può essere anche statica (accede solo ai campi
+  statici)
+\end{itemize}
+
+\begin{lstlisting}[caption={Nested Classes},
+  label={lst:Nested},language=Java]
+  public class Rectangle {
+    //...
+    public boolean isBigger(Rectangle other) {
+      return new RectangleComparator().compare(this, other) > 0;
+    }
+    class RectangleComparator implements Comparator<Rectangle> {
+      @Override
+      public int compare(Rectangle r1, Rectangle r2) {
+        return r1.getArea() - r2.getArea();
+      }
+    }
+  }
+
+\end{lstlisting}
+
+Una nested classes statica è detta Static Nested Class, una non
+statica è detta Inner Class.
+
+Le classi annidate portano numerosi benefici:
+\begin{itemize}
+\item Raggruppamento logico di classi che sono
+  usate solo in un posto
+\item Aumento dell’incapsulamento
+\item Scrittura di codice più manutenibile e
+  leggibile
+\end{itemize}
+
+\subsection{Local Classes}
+
+Le Local Classes, sono classi che sono definite all’interno di un
+block (tipicamente il corpo di un metodo), hanno accesso a tutti i
+campi della classe in cui sono racchiuse, alle variabili locali e ai
+parametri del blocco, a patto che siano final o effective final.
+
+\begin{lstlisting}[caption={Local Classes},
+  label={lst:Local},language=Java]
+  public class Rectangle {
+    //...
+    public boolean isBigger(Rectangle other) {
+      class RectangleComparator implements Comparator<Rectangle> {
+        @Override
+        public int compare(Rectangle r1, Rectangle r2) {
+          return r1.getArea() - r2.getArea();
+        }
+      }
+      return new RectangleComparator().compare(this, other) > 0;
+    }
+  }
+\end{lstlisting}
+
+\subsection{Anonymous Classes}
+
+Le Anonymous Classes, sono classi dichiarate all’interno di
+espressioni. Sono loro stesse espressioni composte da: 
+\begin{itemize}
+\item operatore new
+\item il nome di un’interfaccia da implementare, o una classe da estendere
+\item argomenti del costruttore, passati tra parentesi
+\item corpo del metodo, che contiene l’implementazione 
+\end{itemize}
+Seguono le stesse regole delle local classes per quanto riguarda
+l’utilizzo dei campi e variabili.
+
+\begin{lstlisting}[caption={Anonymous Classes},
+  label={lst:Anonymous},language=Java]
+  public class Rectangle {
+    //...
+    public boolean isBigger(Rectangle other) {
+      return new Comparator<Rectangle>() {
+        @Override
+        public int compare(Rectangle r1, Rectangle r2) {
+          return r1.getArea() - r2.getArea();
+        }
+      }.compare(this, other) > 0;
+    }
+  }
+\end{lstlisting}
+
+\section{Object}
+
+Tutte le classi in Java ereditano direttamente o indirettamente dalla
+classe Object. Da Object, vengono quindi ereditati implicitamente
+alcuni metodi (L'autocompilatore automatico li mette in evidenza
+scrivendo il "." dopo il nome di una classe).
+
+I metodi più importanti sono:
+\begin{itemize}
+\item public boolean equals(Object obj), indica se un certo oggetto è
+  uguale a "questo"
+\item public int hashCode(), ritorna l'hashCode di questo oggetto
+\item public String toString(), ritorna una rappresentazione a stringa
+  dell'oggetto
+\item public final getClass(), ritorna la classe dell'oggetto.
+\end{itemize}
+
+\subsection{Equals} 
+Prendiamo la classe String come esempio
+\begin{lstlisting}[caption={Identità vs Uguaglianza},
+  label={lst:Equals},language=Java]
+  String string1 = new String("pippo");
+  String string2 = new String("pippo");
+  String string3 = string1;
+  System.out.println( string1 == string2 ); //false
+  System.out.println( string1.equals(string2 ) ); //true
+  System.out.println( string1==string3 ); //true
+
+\end{lstlisting}
+Quando si dichiara e istanzia un oggetto, viene riservato uno spazio
+in memoria per salvarlo. L'operatore "==" applicato agli oggetti testa
+l'identità, ovvero se due oggetti sono lo stesso (occupano lo stesso
+spazio in memoria) Mentre l'implementazione di base di equals è
+equivalente a testare l'identità.
+
+Il metodo equals testa l'uguaglianza, ovvero se due oggetti sono
+considerati uguali. Per una classe come String è facile immaginare
+cosa vuol dire: sono uguali se hanno gli stessi caratteri nello stesso
+ordine, ma per un oggetto creato dal programmatore, spetta a chi
+implementa la classe definire l'uguaglianza di quella classe.
+
+Nel caso della classe rettangolo due rettangoli sono uguali se hanno i
+lati uguali.
+
+Per implementare il controllo di uguaglianza per una classe, occorre
+fare l'override del metodo equals().  Sulla javadoc sono presenti
+delle linee guida che Java invita a seguire per una corretta
+implementazione del metodo equals().
+
+Nell'oggetto quindi andrà aggiunto un metodo public boolean
+equals(Object obj) che indica che un altro oggetto è uguale a questo.
+\begin{itemize}
+\item deve essere riflessivo: per ogni oggetto non-null x.equals(x) deve
+  ritornare true
+\item deve essere simmetrico: per ogni oggetto non-null x e y,
+  x.equals(y) deve tornare true se e solo se y.equals(x) ritorna true.
+\item è transitivo: per ogni oggetto non-null x, y e z, se
+  x.equals(y) ritorna true e y.equals(z) ritorna true, anche
+  x.equals(z) ritorna true.
+\item è consistente: per ogni oggetto non-null x e y,
+  invocazioni multiple di x.equals(y) devono ritornare true o false in
+  modo coerente
+\item per ogni oggetto non-null x, x.equals(null) deve ritornare
+  false.
+\item il metodo equalse della classe Object implementa la relazione di
+  equivalenza più discriminante possibile tra oggetti; quindi, per ogni
+  oggetto non-null x e y, questo  metodo ritorna true se e solo se x e
+  y si riferiscono allo stesso oggetto (x==y ha il valore true).
+\item nota che è generalmente necessario eseguire l'Override del metodo
+  hashCode ogni volta questo metodo è riutilizzato, quindi per
+  mantenere il contratto generale per il metodo hashCode, ogni states
+  deve avere uguale hash codes.
+\end{itemize}
+
+È consigliabile fare l'override di equals quando la classe ha una
+nozione di uguaglianza diversa da quella di identità e non eredita
+l'implementazione di equals da una superclasse.
+
+Come fare l'equals di due oggetti?
+\begin{itemize}
+\item testare l'identità con l'operatore "==" (non necessario, ma
+  alleggerisce l'algoritmo)
+\item usare instanceof per controllare la classe dell'altro oggetto
+  (usare la classe dell'oggetto, o quella dell'interfaccia se si vuole
+  permettere comparazioni trasversali)
+\item fare il cast alla classe giusta
+\item testare l'uguaglianza per ogni campo significativo
+  della classe:
+  \begin{itemize}
+  \item se tutti i controlli hanno successo, ritorna true
+  \item appena un controllo fallisce, ritorna false
+  \item per i campi di tipo primitivo, si utilizza == (tranne con float e
+    double!)
+  \item se i campi sono istanze di una classe, utilizzare il metodo
+    equals di quella classe
+  \item prevenire le NullPointerException
+  \end{itemize}
+\end{itemize}
+\subsection{hashCode}
+La funzione di hash è una funzione che può essere usata per mappare
+dati di grandezza arbitraria in dati di grandezza fissata. L'input è
+un dato di qualsiasi genere, l'output è un codice hash.
+
+Per esempio, dovendo trovare una corrispondenza tra due input uguali
+senza sapere l'input si vuole controllare la presenza di dublicati in
+modo immediato.
+
+
+Ogni volta che viene invocato sullo stesso oggetto più di una volta
+durante l'esecuzione dell'applicazione, l'hashCode deve ritornare
+consistentemente lo stesso integer a condizione che nessuna
+informazione utilizzata nei confronti di equals sull'oggetto sia
+modificata.
+
+Se due oggetti sono uguali usando il metodo equals, chiamando
+l'hashCode su ognuno dei due oggetti deve produrre lo stesso
+risultato.
+
+Non è richiesto che se due oggetti non sono uguali secondo equals(),
+allora chiamando l'hashCode su ognuno dei due risultati produca
+diversi valori interi.
+
+L'hashCode interviene ogni volta che si esegue l'override di
+equals. Esistono diverse strutture dati in Java che utilizzano
+l'hashCode per funzionare. Se viene cambiata l'implementazione di
+equals senza cambiare quella di hashCode, la classe non funzionerà più
+correttamente quando si andranno a usare queste strutture
+dati. L'implementazione di default ritorna come hashCode la
+rappresentazione intera dell'indirizzo di memoria in cui è contenuto
+l'oggetto.
+Creare una funzione di hash che dia buoni risultati può essere
+complicato, una buona tecnica è:
+\begin{itemize}
+\item scegliere una costante diversa da 0 (es. 17)
+\item per ogni campo utilizzato nel calcolo di equals
+  \begin{itemize}
+  \item calcolare l'hashCode del campo
+  \item combinarlo col risultato moltiplicato per una costante (e.g. 31) e
+    sommarlo
+    \begin{lstlisting}[caption={},
+      label={lst:hashCode},language=Java]
+      int result = 17;
+      result = 31 * result + c;
+      --
+    \end{lstlisting}
+  \end{itemize}
+\item per i tipi primitivi, calcolare l'hash dipende dal tipo
+  \begin{itemize}
+  \item se f è di tipo byte, char, short, or int, calcola (int)f
+  \item se è boolean, calcola (f ? 1: 0)
+  \end{itemize}
+\item se il tipo è un istanza di una classe, utilizzare la funzione
+  hashCode di quella classe (controllare sempre se l'oggetto è nullo,
+  ed eventualmente tornare una costante)
+\end{itemize} 
+
+\subsection{Object.toString}
+Il metodo toString fornisce una rappresentazione a stringa di un
+oggetto. L'implementazione di default ritorna una rappresentazione nel
+formato:
+\begin{lstlisting}[xleftmargin=0.3\textwidth, xrightmargin=0.3\textwidth, language=Java]
+  <nomeClasse>@<hashCode>
+\end{lstlisting}
+Dare una rappresentazione più significativa può facilitare operazioni
+di debug e log.
+
+
+\chapter{Design Patterns}
+
+Un pattern descrive un problema ricorrente, e il nucleo della
+soluzione del problema.
+
+I pattern sono formati da quattro elementi\footnote{Design patterns:
+  elements of reusable object-oriented software - Gamma,
+  Helm, Johnson, Vlissides (1995)}:
+\begin{itemize}
+\item nome del pattern
+\item problema, ovvera la situazione in cui applicare il pattern
+\item soluzione, ovvero la descrizione astratta
+\item conseguenze, i risultati e i vincoli che si ottengono adottando
+  il pattern
+\end{itemize}
+
+Tra questi, le conseguenze sono particolarmente importanti quando si
+valutano soluzioni alternative o si stimano i costi e i benefici. Le
+conseguenze riguardano vincoli temporali e di spazio e comprendono
+l'impatto sulla flessibilità, estendibilità o portabilità di un
+sistema.
+
+Esempio di problemi che i pattern possono risolvere:
+\begin{itemize}
+\item trovare gli oggetti appropriati
+\item determinare la granularità degli oggetti
+\item definire le interfacce degli oggetti
+\item definire le implementazioni degli oggetti
+\item mettere in pratica il riuso
+\item progettare per il cambiamento
+\end{itemize}
+
+I pattern possono dividersi in diverse categorie: Creazionali,
+Strutturali e Comportamentali.
+
+I primi forniscono una astrazione del processo di creazione degli
+oggetti e sono pensati per rendere un sistema indipendente dalla
+modalità di creazione degli oggetti che utilizza.
+
+I secondi si occupano delle modalità di composizione di classi e
+oggetti per formare strutture complesse e utilizzano l'ereditarietà
+per comporre interfacce o implementazioni.
+
+I Comportamentali si occupano dell'assegnazione delle responsabilità
+tra oggetti collaboranti e descrivono classi e oggetti, e il modo in
+cui essi comunicano tra loro.
+
+\section{Adapter}
+
+
+Il pattern Adapter ha lo scopo di convertire l'interfaccia di una
+classe in un'altra interfaccia richiesta dal client e di consentire a
+classi diverse di operare insieme quando questo non sarebbe possibile
+a causa di interfacce incompatibili.
+
+L'adapter si utilizza quando:
+\begin{itemize}
+\item si vuole usare una classe esistente, ma
+  la sua interfaccia non è compatibile con quella desiderata
+\item quando si vuole creare una classe riusabile in grado di
+  cooperare con classi non correlate o impreviste
+\item quando si devono utilizzare diverse sottoclassi esistenti, ma
+  non è pratico adattare la loro interfaccia.
+\end{itemize}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{/home/simone/informatica/Appunti/Java/immagini/Adapter.png}
+  \caption{Struttura del pattern Adapter: i) \textbf{Target} definisce
+    l'interfaccia specifica del dominio utilizzata dal client ii)
+    \textbf{Adaptee} individua l'interfaccia esistente che deve essere
+    adattata iii) \textbf{Adapter} adatta l'interfaccia \textbf{Adaptee}
+    all'interfaccia \textbf{Target}}
+\end{figure}
+
+
+\section{Template Method}
+
+Lo scopo è quello di definire la struttura dell'algoritmo all'interno
+di un metodo, delegando alcuni passi dell'algoritmo alle sottoclassi
+lasciando, quindi, alle sottoclassi il compito di ridefinire alcuni
+passi dell'algoritmo senza dover implementare la struttura di base.
+
+Il Template Method si usa quando:
+\begin{itemize}
+\item per implementare la parte invariante di un algoritmo una volta sola e
+  lasciare alle sottoclassi il compito di implementare la parte che
+  varia
+\item per raccogliere la parte comune di un algoritmo ed evitare
+  codice duplicato
+\item per controllare l'estendibilità di una sottoclasse
+\end{itemize}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{/home/simone/informatica/Appunti/Java/immagini/template.png}
+  \caption{Struttura del pattern Template Method: i)
+    \textbf{AbstractClass} definisce le primitive astratte che le
+    sottoclassi concrete definiscono per implementare un
+    algoritmo, inoltre mplementa un template method defininendo lo
+    scheletro di un algoritmo, il template method chiama le operazioni
+    primitive e le operazioni definite in AbstractClass o quelle di
+    altri oggetti. ii) \textbf{ConcreteClass} implementa le primitive
+    per eseguire le fasi specifiche delle sottoclassi dell'algoritmo}
+\end{figure}
+
+I Template Method portano a una struttura di controllo invertita in
+cui le classi superiori chiamano le operazioni delle sottoclassi, e
+non il contrario.
+
+I Template Method chiamano le seguenti tipologie di operazione:
+\begin{itemize}
+\item operazioni concrete
+\item operazioni concrete delle abstract class
+\item primitive (per esempio le operazioni astratte)
+\item factory method
+\item hook operation
+\end{itemize}
+
+\subsection{Implementazione}
+
+La classe astratta Carrello contiee due metodi concreti (addProdotto e
+calcolaTotale) e un metodo astratto. Si suppone di voler implementare
+quindi due sottoclassi che scontano il prodotto a seconda di alcune
+condizioni.
+
+\begin{lstlisting}[caption={},
+  label={lst:TempMeth},language=Java]
+
+  public abstract class Carrello {
+
+    private List<Prodotto> prodotti;
+
+    public Carrello() {
+      prodotti = new LinkedList<>();
+    }
+    public void addProdotto(Prodotto p) {
+      prodotti.add(p);
+    }
+    public BigDecimal calcolaTotale() {
+      BigDecimal total = BigDecimal.ZERO;
+      for(Prodotto p : prodotti) {
+        total = total.add(calcolaPrezzo(p));
+      }
+      return total;
+    }
+    protected abstract BigDecimal calcolaPrezzo(Prodotto p);
+  }
+
+  public class CarrelloNatale extends Carrello {
+    @Override
+    protected BigDecimal calcolaPrezzo(Prodotto p) {
+      return p.getPrezzo().multiply(new BigDecimal("0.75"));
+    }
+  }
+
+  public class CarrelloOrdinario extends Carrello {
+    @Override
+    protected BigDecimal calcolaPrezzo(Prodotto p) {
+      return p.getPrezzo();
+    }
+  }
+
+\end{lstlisting}
+
+
+
+
+\chapter{Generics e Collections}
+\section{Collection Framework}
+
+Una collezione è un oggetto che rappresenta un gruppo di oggetti. Le
+collezioni sono usate per tenere insieme dati aggregati, per eseguirci
+operazioni in blocco o passarli come un singolo oggetto.
+
+Java possiede un'architettura unificata per rappresentare e manipolare
+collezioni. Grazie a questa architettura, chiamata Collections
+Framework, è possibile gestire collezioni in modo indipendente dalla
+loro implementazione.
+
+Framework si traduce come intelaiatura o struttura, è una architettura
+di supporto, ed è definito da un insieme di interfacce e dalle
+relazioni tra esse.
+
+\section{Generics}
+\begin{lstlisting}[caption={},
+  label={lst:generics},language=Java]
+
+  public class Box {
+    private Object object;
+    public void set(Object object) {
+      this.object = object;
+    }
+    public Object get() {
+      return object;
+    }
+  }
+\end{lstlisting}
+
+Un Generics accetta qualsiasi tipo di istanza di oggetto. Non c'è modo
+di verificare, durante la compilazione, come verrà usata la classe.
+
+\begin{lstlisting}[caption={Generics},
+  label={lst:genericsExample},language=Java]
+
+  Public class GenericsExample {
+    public static void main(String[] args) {
+      Integer i = 10;
+      Box box = new Box();
+      box.set(i);
+
+      Integer x1 = (Integer)box.get();
+      box.set("ciao");
+      Integer x2 = (Integer)box.get();
+    }
+  }
+
+\end{lstlisting}
+
+I generics aggiungono stabilità al codice, individuando bug durante la
+compilazione, in questo modo le operazioni di cast non sono più
+necessarie.
+
+Tramite i generics è possibile usare i tipi come parametri per
+definire classi, interfacce e metodi. %slide 10
+
+
+
+\chapter{JavaEE 1}
+
+\chapter{JavaEE 2}
+
+\chapter{Database e JDBC}
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

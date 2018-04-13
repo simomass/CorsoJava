@@ -1,0 +1,19 @@
+package it.manpower.jdbc.testing;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
+public class PazienteDao {
+
+	private Connection connection;
+	
+	public PazienteDao(Connection connection) {
+		this.connection = connection;
+	}
+	
+	public List<Paziente> findAll() throws SQLException {
+		return null;
+	}
+	
+}

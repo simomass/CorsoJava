@@ -1,0 +1,36 @@
+package it.manpower.esame;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
+
+public class PrenotazioneDao {
+	private Connection connection;
+
+	public PrenotazioneDao(Connection connection) {
+		this.connection = connection;
+	}
+	
+	public List<Prenotazione> findByCliente(int idCliente) throws SQLException {
+		List<Prenotazione> prenotazioni = new LinkedList<>();
+		Statement stmn = connection.createStatement();
+		ResultSet result = stmn.executeQuery(
+				"SELECT p.ID, p.ID_AUTO, p.DA, p.A FROM CLIENTI c INNER JOIN PRENOTAZIONI p ON c.ID=p.ID_CLIENTE "
+				+ "WHERE ID='"+ idCliente+"'");
+		
+		while (result.next()) {
+			prenotazioni.add(new Prenotazione(
+					result.getInt("ID"), 
+					idCliente,
+					result.getInt("ID_AUTO"), 
+					result.getDate("DA"),
+					result.getDate("A")));
+		}
+		stmn.close();
+		return prenotazioni;
+	}
+	
+}

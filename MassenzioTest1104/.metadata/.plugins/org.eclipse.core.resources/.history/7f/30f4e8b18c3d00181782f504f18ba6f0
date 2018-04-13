@@ -1,0 +1,26 @@
+package it.manpower.esame;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class Main {
+	private static final String DB_CONNECTION_URI = "jdbc:hsqldb:file:db/esame";
+	
+	public static void main(String[] args) throws SQLException {
+		loadDriver();
+		
+		Connection connection = DriverManager.getConnection(DB_CONNECTION_URI);
+		
+		System.out.println("WORKS");
+		
+	}
+	
+	private static void loadDriver() {
+		try {
+			Class.forName("org.hsqldb.jdbc.JDBCDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+}
